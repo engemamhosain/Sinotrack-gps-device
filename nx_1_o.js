@@ -14,6 +14,7 @@ var con = mysql.createConnection({
   database: "tl_p2_backup"
 });
 
+
 // *HQ,8170602418,V1,112605,A,2346.8111,N,09023.7068,E,001.39,000,130717,FFF7BBFF,470,03,00830,61182#
 
 
