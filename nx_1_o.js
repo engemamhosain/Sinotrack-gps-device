@@ -1,5 +1,6 @@
 var net = require('net');
 var process = require('process');
+const MongoClient = require('mongodb').MongoClient;
 // var fs = require('fs');
 
 var HOST = '';
@@ -13,6 +14,23 @@ var con = mysql.createConnection({
   password: "iiqultr11234lokp",
   database: "tl_p2_backup"
 });
+
+var user ="tl_developer"
+var passsword=encodeURIComponent('op0hrut0Gupt0m0ntr0Owner')
+var mongo_uri = `mongodb://${user}:${passsword}@127.0.0.1:19930/tl_gps_device`;
+
+
+
+var db,collection_gps_device_location;
+
+MongoClient.connect(mongo_uri, { useUnifiedTopology: true,useNewUrlParser: true,poolSize:10})
+.then(client => {
+
+  db = client.db('tl_gps_device');
+  collection_gps_device_location = db.collection('gps_device_location');  
+}).catch(error => console.error(error));
+
+
 
 // *HQ,8170602418,V1,112605,A,2346.8111,N,09023.7068,E,001.39,000,130717,FFF7BBFF,470,03,00830,61182#
 
