@@ -11,7 +11,7 @@ var mysql = require('mysql');
 var con = mysql.createConnection({
   host: "localhost",  
   user: "tl-builder",
-  password: "B@ri22!R@st15",
+  password: "B@ri22!R@st@15",
   database: "gps_device"
 });
 
@@ -89,21 +89,13 @@ insert_check = (obj) => {
 replace_sql = (obj)=>{
   var insert_sql = 'REPLACE into devices_last_location set created_on = now(), ? '; 
             con.query(insert_sql, obj, function(err, result){
+             console.log(err);   
+             console.log(result);   
               if (err){
                 //console.log('error? ', err);
                 throw err;
               }
              // console.log('r');
-            });
-}, 
-location_log_sql = (obj)=>{
-  var insert_sql = 'INSERT into truck_location_log_nx set created_on = now(), ? '; 
-            con.query(insert_sql, obj, function(err, result){
-              if (err){
-               // console.log('error? ', err);
-                throw err;
-              }
-//            console.log('.');
             });
 };
 
@@ -123,12 +115,13 @@ net.createServer(function(sock) {
       if(formatedGpsData !== false){
 
         try{
-      	 insetLocaionToMongodb(formatedGpsData);
+          replace_sql(formatedGpsData);
+      	
         }catch(error){
             LogPrint(error);
         }
         try{
-            replace_sql(formatedGpsData);
+            insetLocaionToMongodb(formatedGpsData);
         }catch(error){
           LogPrint(error);
         }
