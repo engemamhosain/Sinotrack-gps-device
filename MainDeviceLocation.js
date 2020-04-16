@@ -9,10 +9,10 @@ var PORT = 6968;
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "::1",  
-  user: "emam-hasan",
-  password: "iiqultr11234lokp",
-  database: "tl_p2_backup"
+  host: "localhost",  
+  user: "tl-builder",
+  password: "B@ri22!R@st15",
+  database: "gps_device"
 });
 
 
@@ -110,22 +110,29 @@ location_log_sql = (obj)=>{
 insetLocaionToMongodb = (locationData)=>{
 	locationData.created_on=new Date();
 	try{
-
 		collection_gps_device_location.insertOne(locationData);   
 	}catch(error){console.log(error);}
 }
+
 net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
   		var data = buffer.toString('utf8'),
-      t = manage_raw(data);
-	console.log(t);
-      if(t !== false){
-//        replace_sql(t);
-	insetLocaionToMongodb(t);
-        if(insert_check(t) === true){
-         // location_log_sql(t);
+        formatedGpsData = manage_raw(data);
+	
+      if(formatedGpsData !== false){
+
+        try{
+      	 insetLocaionToMongodb(formatedGpsData);
+        }catch(error){
+            LogPrint(error);
         }
+        try{
+            replace_sql(formatedGpsData);
+        }catch(error){
+          LogPrint(error);
+        }
+        
       }
       sock.end();
     });
@@ -147,4 +154,6 @@ process
     //process.exit(1);
   });
 
-// https://maps.googleapis.com/maps/api/staticmap?zoom=16&size=480x600&center=2343.4497N,9022.9884E
+  LogPrint =(err)=>{
+    //console.log(err);
+  }
