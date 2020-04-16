@@ -92,10 +92,8 @@ replace_sql = (obj)=>{
              console.log(err);   
              console.log(result);   
               if (err){
-                //console.log('error? ', err);
                 throw err;
               }
-             // console.log('r');
             });
 };
 
