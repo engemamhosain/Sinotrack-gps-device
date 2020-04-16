@@ -89,8 +89,6 @@ insert_check = (obj) => {
 replace_sql = (obj)=>{
   var insert_sql = 'REPLACE into devices_last_location set created_on = now(), ? '; 
             con.query(insert_sql, obj, function(err, result){
-             console.log(err);   
-             console.log(result);   
               if (err){
                 throw err;
               }
