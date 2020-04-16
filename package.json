@@ -1,0 +1,23 @@
+{
+  "name": "gps-device-location",
+  "version": "2.0.0",
+  "description": "TruckLabge Gps Device Location Date store",
+  "main": "nx_1_o.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/emamhasan1137/GpsDeviceLocation.git"
+  },
+  "keywords": [
+    "gps"
+  ],
+  "author": "TruckLagbe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/emamhasan1137/GpsDeviceLocation/issues"
+  },
+  "homepage": "https://gitlab.com/emamhasan1137/GpsDeviceLocation#README"
+}
