@@ -105,19 +105,29 @@ location_log_sql = (obj)=>{
             });
 };
 
+insetLocaionToMongodb = (locationData)=>{
+	locationData.created_on=new Date();
+	try{
+
+		collection_gps_device_location.insertOne(locationData);   
+	}catch(error){console.log(error);}
+}
 net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
   		var data = buffer.toString('utf8'),
       t = manage_raw(data);
+	console.log(t);
       if(t !== false){
-        replace_sql(t);
+//        replace_sql(t);
+	insetLocaionToMongodb(t);
         if(insert_check(t) === true){
          // location_log_sql(t);
         }
       }
       sock.end();
     });
+
         
     sock.on('close', function(data) { });
     
