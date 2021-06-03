@@ -60,7 +60,10 @@ const Sinotrack = require("../models/Sinotrack");
               let obj=this.sinotrack.getMongoObject();
               MongoCon.connectToServer( function( err) {
                 if (err) console.log(err);
-                let collection_gps_device_location = MongoCon.getDb().collection('gps_device_location');
+                let date=new Date();
+                let month=date.getMonth()+1;
+                let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
+                let collection_gps_device_location = MongoCon.getDb().collection('gps_device_location'+collectionName);
                 collection_gps_device_location.insertOne(obj);  
               });
       
