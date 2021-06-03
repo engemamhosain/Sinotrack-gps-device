@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://gitlab.com/emamhasan1137/GpsDeviceLocation/issues"
   },
-  "homepage": "https://gitlab.com/emamhasan1137/GpsDeviceLocation#README"
+  "homepage": "https://gitlab.com/emamhasan1137/GpsDeviceLocation#README",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mongodb": "^3.6.9",
+    "mysql": "^2.18.1"
+  }
 }
