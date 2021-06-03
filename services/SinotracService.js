@@ -6,7 +6,7 @@ const Sinotrack = require("../models/Sinotrack");
 
  class SinotracService {
 
-    sinotrack = null;
+      sinotrack = null;
 
     constructor(buffer){
       try {
