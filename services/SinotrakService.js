@@ -8,13 +8,21 @@ const collection_name=["gps_device_location_"];
 
       sinotrack = null;
 
-    constructor(buffer){
+    constructor(buffers){
       try {
-        this.sinotrack = new Sinotrack(buffer.toString('utf8'));
-        this.sinotrack.makeMysqlObject();
-       this.updateGpsDataToMysql();
-       
-       this.updateGpsDataToMongo();
+        let arrayofBuffer=buffers.toString('utf8').split("#");
+        for(var i=0;i<arrayofBuffer.length;i++){
+          if(arrayofBuffer[i].length<10){
+            continue;
+          }
+
+          this.sinotrack = new Sinotrack(arrayofBuffer[i]);
+          this.sinotrack.makeObject();
+         this.updateGpsDataToMysql();
+         this.updateGpsDataToMongo();
+
+        }
+      
       } catch (error) {
         throw error;  
       }

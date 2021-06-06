@@ -118,7 +118,7 @@
 
     }
 
-    makeMysqlObject=()=>{
+    makeObject=()=>{
      
     
         this.imei_id = this.rawData.substr(4, 10);
@@ -136,7 +136,7 @@
         this.n_mcc = this.rawData.substr(79, 3);
         this.n_mnc =this.rawData.substr(83, 2);
         this.n_lac = this.rawData.substr(86, 5);
-        this.n_celid =this.rawData.substr(92, this.rawData.length - 93);
+        this.n_celid =this.rawData.substr(92,5);
 
         this.setEngineStatus(this.bits);
     }
