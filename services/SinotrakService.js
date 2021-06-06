@@ -3,8 +3,8 @@ const CONNECTION= require("../database/connection");
  const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
 
-
- class SinotracService {
+const collection_name=["gps_device_location_"];
+ class SinotrackService {
 
     sinotrack = null;
 
@@ -63,7 +63,7 @@ const Sinotrack = require("../models/Sinotrack");
                 let date=new Date();
                 let month=date.getMonth()+1;
                 let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
-                let collection_gps_device_location = MongoCon.getDb().collection('gps_device_location'+collectionName);
+                let collection_gps_device_location = MongoCon.getDb().collection(collection_name+collectionName);
                 collection_gps_device_location.insertOne(obj);  
               });
       
@@ -81,4 +81,4 @@ const Sinotrack = require("../models/Sinotrack");
 
   }
 
-  module.exports = SinotracService;
+  module.exports = SinotrackService;

@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const SinotracService = require("./services/SinotracService")
+const SinotracService = require("./services/SinotrakService")
 
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
