@@ -2,7 +2,7 @@ const INSERT_QUERY = require("../config/mysqlQuery");
 const CONNECTION= require("../database/connection");
  const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
-
+const MONGO_INTERVAL_TIME = 10;
 const collection_name=["gps_device_location_"];
  class SinotrackService {
 
@@ -59,11 +59,10 @@ const collection_name=["gps_device_location_"];
      updateGpsDataToMongo(){
       try {
     
-        let date= new Date().getMinutes()%10;
-        if( date==0 && new Date().getSeconds()%10==2 || this.sinotrack.speed>5){
-
+        let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
+        
+        if( date==0 && new Date().getSeconds()%MONGO_INTERVAL_TIME==2){
           if(this.sinotrack!=null){
-
             try{
               let obj=this.sinotrack.getMongoObject();
               MongoCon.connectToServer( function( err) {

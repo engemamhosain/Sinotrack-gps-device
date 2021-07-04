@@ -1,5 +1,6 @@
  const KNOT=1.852000;
-
+const MysqlData=require('./MysqlData'); 
+const MongoData=require('./MongoData'); 
  class Sinotrack {
    
     imei_id = 0;
@@ -20,8 +21,6 @@
     n_celid = 0;
     engine_status=0;
     rawData=0;
-   
-
 
     constructor(rawData) {
       this.rawData = rawData;
@@ -31,52 +30,19 @@
 
         let mysqlObj={};
         try {
-            mysqlObj={
-                imei_id:this.imei_id,
-                lat:this.lat,
-                lng:this.lng,
-                speed:this.speed,
-                engine_status:this.engine_status,
-                lat_direction:this.lat_direction,
-                lng_direction:this.lng_direction,
-                gps_date_time:this.date+"/"+this.time,
-                bits:this.bits
-            }
-    
+            mysqlObj=new MysqlData(this);
         } catch (error) {
-            
-        }
-
-        return mysqlObj;
+        }      
+       return mysqlObj;
     }
 
     getMongoObject=()=>{
 
         let mongoObj={};
         try {
-            mongoObj={
-                imei_id:this.imei_id,
-                latitude:this.lat,
-                latitude:this.lng,
-                speed:this.speed,
-                engine_status:this.engine_status,
-                lat_direction:this.lat_direction,
-                lng_direction:this.lng_direction,
-                gps_date_time:this.date+"/"+this.time,
-                bits:this.bits,
-                cmd:this.cmd,
-                valid:this.valid,
-                n_celid:this.n_celid,
-                n_lac:this.n_lac,
-                n_mcc:this.n_mcc,
-                n_mnc:this.n_mnc,
-                created_on:new Date()
-            }
-    
-        } catch (error) {
-            
+            mongoObj = new MongoData(this);
+        } catch (error) {   
         }
-
         return mongoObj;
     }
 
