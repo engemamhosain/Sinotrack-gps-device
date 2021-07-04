@@ -13,7 +13,6 @@
     speed = 0;
     direct= 0;
     date = 0;
-    time = 0;
     bits = 0;
     n_mcc = 0;
     n_mnc = 0;
@@ -57,8 +56,8 @@
         try {
             mongoObj={
                 imei_id:this.imei_id,
-                lat:this.lat,
-                lng:this.lng,
+                latitude:this.lat,
+                latitude:this.lng,
                 speed:this.speed,
                 engine_status:this.engine_status,
                 lat_direction:this.lat_direction,
