@@ -6,7 +6,7 @@ const MONGO_INTERVAL_TIME = 10;
 const collection_name=["gps_device_location_"];
  class SinotrackService {
 
-    sinotrack = null;
+      sinotrack = null;
 
     constructor(buffers){
       try {
