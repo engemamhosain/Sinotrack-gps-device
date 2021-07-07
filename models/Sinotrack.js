@@ -24,6 +24,7 @@ const MongoData=require('./MongoData');
 
     constructor(rawData) {
       this.rawData = rawData;
+      this.makeObject();
     }
 
     getMysqlObject=()=>{
@@ -41,7 +42,8 @@ const MongoData=require('./MongoData');
         let mongoObj={};
         try {
             mongoObj = new MongoData(this);
-        } catch (error) {   
+        } catch (error) {  
+            throw error 
         }
         return mongoObj;
     }

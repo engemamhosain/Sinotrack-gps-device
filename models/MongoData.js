@@ -3,7 +3,7 @@ class MongolData {
    
     imei_id=0;
     latitude=0;
-    latitude=0;
+    longitude=0;
     speed=0;
     engine_status=0;
     lat_direction=0;
@@ -30,22 +30,22 @@ class MongolData {
     constructor(contex) {
         try {
 
-                imei_id=contex.imei_id,
-                latitude=contex.lat,
-                latitude=contex.lng,
-                speed=contex.speed,
-                engine_status=contex.engine_status,
-                lat_direction=contex.lat_direction,
-                lng_direction=contex.lng_direction,
-                gps_date_time=contex.date+"/"+contex.time,
-                bits=contex.bits,
-                cmd=contex.cmd,
-                status=contex.valid,
-                n_celid=contex.n_celid,
-                n_lac=contex.n_lac,
-                n_mcc=contex.n_mcc,
-                n_mnc=contex.n_mnc,
-                created_on=new Date()
+                this.imei_id=contex.imei_id,
+                this.latitude=contex.lat,
+                this.longitude=contex.lng,
+                this.speed=contex.speed,
+                this.engine_status=contex.engine_status,
+                this.lat_direction=contex.lat_direction,
+                this.lng_direction=contex.lng_direction,
+                this.gps_date_time=contex.date+"/"+contex.time,
+                this.bits=contex.bits,
+                this.cmd=contex.cmd,
+                this.status=contex.valid,
+                this.n_celid=contex.n_celid,
+                this.n_lac=contex.n_lac,
+                this.n_mcc=contex.n_mcc,
+                this.n_mnc=contex.n_mnc,
+                this.created_on=new Date()
 
         } catch (error) {
             throw error
