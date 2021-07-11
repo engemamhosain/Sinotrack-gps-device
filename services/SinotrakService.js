@@ -62,6 +62,7 @@ const collection_name=["gps_device_location_"];
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
+              
               if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2|| obj.bits=="FFFF9FFB"|| obj.bits=="FFFF9FFB" ){
              
               MongoCon.connectToServer( function( err) {

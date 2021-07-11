@@ -35,6 +35,7 @@ class MongolData {
                 this.longitude=contex.lng,
                 this.speed=contex.speed,
                 this.engine_status=contex.engine_status,
+                this.alarm_type = contex.alarm_type,
                 this.lat_direction=contex.lat_direction,
                 this.lng_direction=contex.lng_direction,
                 this.gps_date_time=contex.date+"/"+contex.time,

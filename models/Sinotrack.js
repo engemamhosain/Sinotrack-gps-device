@@ -92,13 +92,9 @@ const MongoData=require('./MongoData');
                 this.engine_status = "power_connection";
                 break;   
             case "FFFF9FFB":
+                this.engine_status = "engine_connection";
                 this.engine_status = "over_speed";
                 break; 
-                
-            case "FFFF9FFB":
-                this.engine_status = "engine_connection";
-                this.alarm_type="over_speed";
-            break;  
 
             case "FBFF9FFB":
                 this.engine_status = "engine_connection";
