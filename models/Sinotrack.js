@@ -23,6 +23,7 @@ const MongoData=require('./MongoData');
     n_lac = 0;
     n_celid = 0;
     engine_status=0;
+    alarm_type=0;
     rawData=0;
 
     constructor(rawData) {
@@ -95,11 +96,13 @@ const MongoData=require('./MongoData');
                 break; 
                 
             case "FFFF9FFB":
-                this.engine_status = "over_speed";
+                this.engine_status = "engine_connection";
+                this.alarm_type="over_speed";
             break;  
 
             case "FBFF9FFB":
-                this.engine_status = "over_speed";
+                this.engine_status = "engine_connection";
+                this.alarm_type="over_speed";
             break;  
         
         

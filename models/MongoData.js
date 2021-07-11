@@ -17,7 +17,6 @@ class MongolData {
     n_mcc=0;
     n_mnc=0;
     created_on=0;
-    alarm_type=0;
     protocol_number=0;
     device_name=DEVICE_NAME;
     status=0;
@@ -42,7 +41,7 @@ class MongolData {
                 this.bits=contex.bits,
                 this.cmd=contex.cmd,
                 this.valid_bit=contex.valid_bit;
-                this.status=contex.valid,
+                this.status=contex.valid_bit,
                 this.n_celid=contex.n_celid,
                 this.n_lac=contex.n_lac,
                 this.n_mcc=contex.n_mcc,

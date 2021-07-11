@@ -57,13 +57,13 @@ const collection_name=["gps_device_location_"];
      updateGpsDataToMongo(){
       try {
         
-        let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
-    
-     if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2){
-        
+     
           if(this.sinotrack!=null){ 
             try{
+              let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
+              if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2|| obj.bits=="FFFF9FFB"|| obj.bits=="FFFF9FFB" ){
+             
               MongoCon.connectToServer( function( err) {
                 if (err) console.log(err);
                 let date=new Date();
@@ -73,12 +73,12 @@ const collection_name=["gps_device_location_"];
                 let collection_gps_device_location = MongoCon.getDb().collection(collection_name+collectionName);
                 collection_gps_device_location.insertOne(obj);  
               });
-      
+            }
             }catch(error){
              throw error;
             }
 
-          }
+       
         }  
   
         } catch (error) {    
