@@ -29,10 +29,19 @@ net.createServer(function(sock) {
 
 console.log('Server listening on ' + HOST +':'+ PORT,process.env);
 
-process.on('unhandledRejection', (reason, p) => {
-throw reason
-}).on('uncaughtException', err => {
-  throw err
-  //process.exit(1);
-});
+// process.on('unhandledRejection', (reason, p) => {
+// throw reason
+// }).on('uncaughtException', err => {
+//   console.log(err)
+//   //process.exit(1);
+// });
 
+
+process
+  .on('unhandledRejection', (reason, p) => {
+    console.error(reason, 'Unhandled Rejection at Promise', p);
+  })
+  .on('uncaughtException', err => {
+    console.error(err, 'Uncaught Exception thrown');
+   // process.exit(1);
+  });
