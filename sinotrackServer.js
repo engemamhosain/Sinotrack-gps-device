@@ -27,7 +27,7 @@ net.createServer(function(sock) {
     
 }).listen(PORT, HOST);
 
-console.log('Server listening on ' + HOST +':'+ PORT);
+console.log('Server listening on ' + HOST +':'+ PORT,process.env);
 
 process.on('unhandledRejection', (reason, p) => {
 throw reason

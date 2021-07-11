@@ -11,6 +11,7 @@ class MongolData {
     gps_date_time=0;
     bits=0;
     cmd=0;
+    valid_bit=0;
     n_celid=0;
     n_lac=0;
     n_mcc=0;
@@ -40,6 +41,7 @@ class MongolData {
                 this.gps_date_time=contex.date+"/"+contex.time,
                 this.bits=contex.bits,
                 this.cmd=contex.cmd,
+                this.valid_bit=contex.valid_bit;
                 this.status=contex.valid,
                 this.n_celid=contex.n_celid,
                 this.n_lac=contex.n_lac,

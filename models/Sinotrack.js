@@ -1,3 +1,5 @@
+ //var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFF7BBFF,470,03,00830,61182#";
+
  const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
@@ -6,7 +8,8 @@ const MongoData=require('./MongoData');
     imei_id = 0;
     cmd= 0;
     time =0;
-    valid=0;
+    version=0;//V1 version
+    valid_bit=0;//gps valid A gps invalid V
     lat=0;
     lng=0;
     lat_direction=0;
@@ -70,13 +73,35 @@ const MongoData=require('./MongoData');
                 break;   
             case "FFF7BBFF":
                 this.engine_status = "battery_backup";
-                break;       
+                break;   
+                
+                
+            case "FBF7BBFF":
+                this.engine_status = "battery_backup";
+                break;   
+
+            case "FBF79FFF":
+                this.engine_status = "battery_backup";
+                break;   
+
             case "FFFF9FFF":
                 this.engine_status = "engine_connection";
                 break;   
             case "FFFFBBFF":
                 this.engine_status = "power_connection";
                 break;   
+            case "FFFF9FFB":
+                this.engine_status = "over_speed";
+                break; 
+                
+            case "FFFF9FFB":
+                this.engine_status = "over_speed";
+            break;  
+
+            case "FBFF9FFB":
+                this.engine_status = "over_speed";
+            break;  
+        
         
             default:
                 this.engine_status = "other";
@@ -84,28 +109,45 @@ const MongoData=require('./MongoData');
         }
 
     }
+    getValidBit=(bitStatus)=>{
+       let status="";
+        try {
+            status = bitStatus=="A"?"GPS valid":"GPS invalid"
+        } catch (error) {
+            
+        }
+        return status;
+    }
 
-    makeObject=()=>{
-     
+    makeObject=()=> {
+        try {
+            
+            let gpsArrayData = this.rawData.split(",");
+
+            this.cmd = gpsArrayData[0];
+            this.imei_id = gpsArrayData[1];
+            this.version =gpsArrayData[2];
+            this.time = gpsArrayData[3];
+            this.valid_bit= this.getValidBit(gpsArrayData[4]);
+            
+
+            this.lat = this.lat_ddm_to_decimal(gpsArrayData[5]);
+            this.lat_direction = gpsArrayData[6];
+            this.lng = this.lng_ddm_to_decimal(gpsArrayData[7]);
+            this.lng_direction =gpsArrayData[8];
+            this.speed =this.knotToKM(gpsArrayData[9]);
+
+            this.direct = gpsArrayData[10];
+            this.date = gpsArrayData[11];
+            this.bits = gpsArrayData[12];
+            this.n_mcc = gpsArrayData[13];
+            this.n_mnc =gpsArrayData[14];
+            this.n_lac = gpsArrayData[15];
+            this.n_celid =gpsArrayData[16];
     
-        this.imei_id = this.rawData.substr(4, 10);
-        this.cmd = this.rawData.substr(15, 2);
-        this.time = this.rawData.substr(18, 6);
-        this.valid =this.rawData.substr(25, 1);
-        this.lat = this.lat_ddm_to_decimal(this.rawData.substr(27, 9));
-        this.lat_direction = this.rawData.substr(37, 1);
-        this.lng = this.lng_ddm_to_decimal(this.rawData.substr(39, 10));
-        this.lng_direction = this.rawData.substr(50, 1);
-        this.speed =this.knotToKM(this.rawData.substr(52, 6));
-        this.direct = this.rawData.substr(59, 3); 
-        this.date = this.rawData.substr(63, 6);
-        this.bits = this.rawData.substr(70, 8);
-        this.n_mcc = this.rawData.substr(79, 3);
-        this.n_mnc =this.rawData.substr(83, 2);
-        this.n_lac = this.rawData.substr(86, 5);
-        this.n_celid =this.rawData.substr(92,5);
-
-        this.setEngineStatus(this.bits);
+            this.setEngineStatus(this.bits);
+        } catch (error) {}
+      
     }
 
     
