@@ -8,27 +8,20 @@ var net = require('net');
 var client = new net.Socket();
 
 
-//client.connect(6968, '127.0.0.1', function() {
-client.connect(6968, '103.199.168.131', function() {
+callFunc=()=>{
+client.connect(6968, '127.0.0.1', function() {
+//	client.connect(6968, '103.199.168.131', function() {
 		console.log('Connected');
 			client.write(gps_data);
 			
 	});
-
-
+}	
 	
+callFunc();
+
 setInterval(() => {
-
-client.connect(6968, '103.199.168.131', function() {
-//client.connect(6968, '127.0.0.1', function() {
-//client.connect(6968, '52.221.246.136', function() {
-	console.log('Connected');
-		client.write(gps_data);
-		
-});
-
-
-}, 100);
+	//callFunc();
+}, 10000);
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);

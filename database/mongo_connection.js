@@ -5,9 +5,17 @@ const MongoClient = require('mongodb').MongoClient;
 var db,db_client;
 
 function connectToServer( callback ) {
-    MongoClient.connect(MONGO_DB_URI,  { useUnifiedTopology: true , useNewUrlParser: true,poolSize:10 }, function( err, client ) {
-        db  = client.db(DB_OPTION[1].database);
-        db_client=client;
+    MongoClient.connect(MONGO_DB_URI,  { useUnifiedTopology: true , useNewUrlParser: true}, function( err, client ) {
+       try {
+        if(db){
+            db  = client.db(DB_OPTION[1].database);
+            db_client=client;
+        }
+       
+       } catch (error) {
+           
+       }
+       
         return callback( err );
     })
 }
@@ -22,8 +30,7 @@ function closeClient() {
     try {
         db_client.close();
     } catch (error) {
-        console.log("err from closeClient")
-        throw error
+
     }
    
 }
