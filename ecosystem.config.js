@@ -20,8 +20,9 @@ module.exports = {
        "port":"40405",
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : "/data4tb/other/Sintorack/",
-       "post-deploy" : "npm install"
+       "path" : "/data4tb/other/Sintorack/TestDeploy",
+       "pre-setup" : "mkdir TestDeploy",
+       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
 };
