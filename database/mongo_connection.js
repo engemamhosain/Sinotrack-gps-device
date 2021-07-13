@@ -22,6 +22,7 @@ function closeClient() {
     try {
         db_client.close();
     } catch (error) {
+        console.log("err from closeClient")
         throw error
     }
    

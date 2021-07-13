@@ -16,7 +16,7 @@ const collection_name=["gps_device_location_"];
             continue;
           }
           this.sinotrack = new Sinotrack(arrayofBuffer[i]);
-         this.updateGpsDataToMysql();
+       //  this.updateGpsDataToMysql();
          this.updateGpsDataToMongo();
 
         }
@@ -79,13 +79,15 @@ const collection_name=["gps_device_location_"];
               });
             }
             }catch(error){
+              console.log("err from updateGpsDataToMongo")
              throw error;
             }
 
        
         }  
   
-        } catch (error) {    
+        } catch (error) {  
+          console.log("err from updateGpsDataToMongo")  
           throw error
         }
     }
