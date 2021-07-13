@@ -17,6 +17,7 @@ function getDb() {
 }
 
 
+
 function closeClient() {
     try {
         db_client.close();
@@ -27,5 +28,5 @@ function closeClient() {
 }
 
 
-module.exports = {connectToServer, getDb}
+module.exports = {connectToServer, getDb,closeClient}
 
