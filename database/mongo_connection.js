@@ -22,7 +22,7 @@ function closeClient() {
     try {
         db_client.close();
     } catch (error) {
-        
+        throw error
     }
    
 }
