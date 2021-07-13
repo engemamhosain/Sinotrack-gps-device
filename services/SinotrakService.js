@@ -72,7 +72,10 @@ const collection_name=["gps_device_location_"];
                 let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
                
                 let collection_gps_device_location = MongoCon.getDb().collection(collection_name+collectionName);
-                collection_gps_device_location.insertOne(obj);  
+                collection_gps_device_location.insertOne(obj); 
+
+                MongoCon.closeClient();
+
               });
             }
             }catch(error){

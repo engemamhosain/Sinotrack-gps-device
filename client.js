@@ -28,7 +28,7 @@ client.connect(6968, '103.199.168.131', function() {
 });
 
 
-}, 1000);
+}, 100);
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);
