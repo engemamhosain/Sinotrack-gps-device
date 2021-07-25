@@ -11,19 +11,22 @@ class MongoDbClient{
     obj=null;
     constructor(obj) {
     this.obj=obj;
-      insertMongoData(obj);
+      this.insertMongoData(obj);
     }
   
 
+
+    
     insertMongoData =(obj)=> {
 
-        MongoClient.connect(MONGO_DB_URI,{useUnifiedTopology: true},function(err, db) {
-            assert.equal(null, err);
-
-       //     const database  = client.db(DB_OPTION[1].database);
-            const collection_gps_device_location = db.collection(collection_name+collectionName);
-            collection_gps_device_location.insertOne(this.obj,function(err, item){
-                db.close();
+        MongoClient.connect(MONGO_DB_URI,{useUnifiedTopology: true},function(err, client) {
+          if(err){
+                throw err
+          }
+           const database  = client.db(DB_OPTION[1].database);
+            const collection_gps_device_location = database.collection(collection_name+collectionName);
+            collection_gps_device_location.insertOne(obj,function(err, item){
+                client.close();
             });
 
         });
