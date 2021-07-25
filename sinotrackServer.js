@@ -15,6 +15,9 @@ net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
      new SinotracService(buffer);	
+
+     console.log(buffer.toString('utf8'))
+     
       sock.end();
     });
 
