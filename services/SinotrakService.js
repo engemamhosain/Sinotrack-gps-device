@@ -1,6 +1,7 @@
 const INSERT_QUERY = require("../config/mysqlQuery");
 const CONNECTION= require("../database/connection");
- const MongoCon = require("../database/mongo_connection");
+ const MongoDbClient = require("../database/mongo_connection");
+ //const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
 const MONGO_INTERVAL_TIME = 10;
 const collection_name=["gps_device_location_"];
@@ -53,8 +54,8 @@ const collection_name=["gps_device_location_"];
         }
     }
 
-
-     updateGpsDataToMongo(){
+   
+      async updateGpsDataToMongo(){
       try {
         
      
@@ -62,24 +63,12 @@ const collection_name=["gps_device_location_"];
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
-              
+                
               if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2|| obj.bits=="FFFF9FFB"|| obj.bits=="FFFF9FFB" ){
-             
-              MongoCon.connectToServer( function( err) {
-                if (err) console.log(err);
-                let date=new Date();
-                let month=date.getMonth()+1;
-                let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
-               
-                let collection_gps_device_location = MongoCon.getDb().collection(collection_name+collectionName);
-                collection_gps_device_location.insertOne(obj); 
-
-                MongoCon.closeClient();
-
-              });
-            }
+                
+                MongoDbClient
+              }
             }catch(error){
-
              throw error;
             }
 
@@ -87,10 +76,15 @@ const collection_name=["gps_device_location_"];
         }  
   
         } catch (error) {  
-  
           throw error
         }
     }
+
+
+    async  test() {
+      console.log("test async")
+    }
+
 
   }
 

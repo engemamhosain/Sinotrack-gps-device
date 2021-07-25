@@ -14,12 +14,7 @@ const HOST = process.env.HOST;
 net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
-     new SinotracService(buffer);
-  		// var data = buffer.toString('utf8');
-//       console.log(buffer)
-  		//  var data = buffer.toString('utf8');
-      //  console.log(data)
-	
+     new SinotracService(buffer);	
       sock.end();
     });
 
@@ -38,10 +33,9 @@ console.log('Server listening on ' + HOST +':'+ PORT,process.env);
 // });
 
 
-process
-  .on('unhandledRejection', (reason, p) => {
+process.on('unhandledRejection', (reason, p) => {
     console.error(reason, 'Unhandled Rejection at Promise', p);
-  })
+})
   .on('uncaughtException', err => {
     console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);

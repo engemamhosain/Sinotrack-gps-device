@@ -9,8 +9,8 @@ var client = new net.Socket();
 
 
 callFunc=()=>{
-client.connect(6968, '127.0.0.1', function() {
-//	client.connect(6968, '103.199.168.131', function() {
+//client.connect(6968, '127.0.0.1', function() {
+	client.connect(6968, '103.199.168.131', function() {
 		console.log('Connected');
 			client.write(gps_data);
 			
@@ -19,9 +19,9 @@ client.connect(6968, '127.0.0.1', function() {
 	
 callFunc();
 
-setInterval(() => {
-	//callFunc();
-}, 10000);
+// setInterval(() => {
+// 	callFunc();
+// }, 10000);
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);
