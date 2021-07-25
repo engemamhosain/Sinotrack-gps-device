@@ -66,7 +66,7 @@ const collection_name=["gps_device_location_"];
                 
               if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2|| obj.bits=="FFFF9FFB"|| obj.bits=="FFFF9FFB" ){
                 
-                MongoDbClient
+                new MongoDbClient(obj);
               }
             }catch(error){
              throw error;
