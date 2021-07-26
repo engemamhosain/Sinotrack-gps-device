@@ -20,7 +20,7 @@ class MongolData {
     protocol_number=0;
     device_name=DEVICE_NAME;
     status=0;
-    ignition=0;
+    ignition = false;
     charging=0;
     alarm_type=0;
     gps_tracking=0;
@@ -43,6 +43,7 @@ class MongolData {
                 this.cmd=contex.cmd,
                 this.valid_bit=contex.valid_bit;
                 this.status=contex.valid_bit,
+                this.ignition=contex.ignition,
                 this.n_celid=contex.n_celid,
                 this.n_lac=contex.n_lac,
                 this.n_mcc=contex.n_mcc,

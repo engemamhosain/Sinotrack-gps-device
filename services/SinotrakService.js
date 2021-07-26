@@ -1,15 +1,16 @@
 const INSERT_QUERY = require("../config/mysqlQuery");
-const CONNECTION= require("../database/connection");
+// const CONNECTION= require("../database/connection");
  const MongoDbClient = require("../database/mongo_connection");
  //const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
 const MONGO_INTERVAL_TIME = 10;
+const imei_ids=["FFFF9FFF","FFFFB9FF"]
 const collection_name=["gps_device_location_"];
  class SinotrackService {
 
       sinotrack = null;
 
-    constructor(buffers){
+    constructor(buffers) {
       try {
         let arrayofBuffer=buffers.toString('utf8').split("#");
         for(var i=0;i<arrayofBuffer.length;i++){
@@ -30,18 +31,32 @@ const collection_name=["gps_device_location_"];
 
   
 
-    updateGpsDataToMysql= ()=>{
+    updateGpsDataToMysql= () => {
      
       try {
       
 
-          if(this.sinotrack!=null){
+          if(this.sinotrack!=null) {
 
-            CONNECTION.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
-              if (err){
-                throw err;
-              }
-            });
+            CONNECTION.getConnection((err, connection) => {
+              if(err) throw err;
+
+
+              connection.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
+  
+                  connection.release(); // return the connection to pool
+                  if(err) throw err;
+
+              });
+
+          });
+
+
+            // CONNECTION.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
+            //   if (err){
+            //     throw err;
+            //   }
+            // });
 
           }
 
@@ -55,19 +70,27 @@ const collection_name=["gps_device_location_"];
     }
 
    
-      async updateGpsDataToMongo(){
+      async updateGpsDataToMongo() {
       try {
         
      
-          if(this.sinotrack!=null){ 
+          if(this.sinotrack!=null) { 
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
-                
-              if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2|| obj.bits=="FFFF9FFB"|| obj.bits=="FFFF9FFB" ){
-                
+
+              if(obj.bits==imei_ids[0] || obj.bits==imei_ids[1]){
+
+                if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
+                  new MongoDbClient(obj);
+                }
+              }else{
+          
                 new MongoDbClient(obj);
               }
+                
+             
+
             }catch(error){
              throw error;
             }
@@ -89,3 +112,4 @@ const collection_name=["gps_device_location_"];
   }
 
   module.exports = SinotrackService;
+

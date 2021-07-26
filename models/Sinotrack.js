@@ -1,5 +1,5 @@
  //var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFF7BBFF,470,03,00830,61182#";
-
+ const sendPushNotification =require('../notification/sendNotification');
  const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
@@ -22,8 +22,9 @@ const MongoData=require('./MongoData');
     n_mnc = 0;
     n_lac = 0;
     n_celid = 0;
-    engine_status=0;
+    engine_status="engine_off";
     alarm_type=0;
+    ignition=false;
     rawData=0;
 
     constructor(rawData) {
@@ -62,50 +63,91 @@ const MongoData=require('./MongoData');
         return KNOT*speed;
     }
 
-
+     hex2bin=(hex)=>{
+        return (parseInt(hex, 16).toString(2)).padStart(8, '0');
+    }
 
     setEngineStatus  = (bits) =>{
-        switch (bits) {
-            case "FBF7BBFF":
-                this.engine_status = "charge_drained";
-                break;
-            case "FFF79FFF":
-                this.engine_status = "earthing_connected";
-                break;   
-            case "FFF7BBFF":
-                this.engine_status = "battery_backup";
-                break;   
+
+        // var result = bits.forEach(str => {
+        //     result += this.hex2bin(str)
+        // })
+
+       let result = this.hex2bin(bits)
+
+        // switch (bits) {
+        //     case "FBF7BBFF":
+        //         this.engine_status = "charge_drained";
+        //         break;
+        //     case "FFF79FFF":
+        //         this.engine_status = "earthing_connected";
+        //         break;   
+        //     case "FFF7BBFF":
+        //         this.engine_status = "battery_backup";
+        //         break;   
                 
                 
-            case "FBF7BBFF":
-                this.engine_status = "battery_backup";
-                break;   
+        //     case "FBF7BBFF":
+        //         this.engine_status = "battery_backup";
+        //         break;   
 
-            case "FBF79FFF":
-                this.engine_status = "battery_backup";
-                break;   
+        //     case "FBF79FFF":
+        //         this.engine_status = "battery_backup";
+        //         break;   
 
-            case "FFFF9FFF":
-                this.engine_status = "engine_connection";
-                break;   
-            case "FFFFBBFF":
-                this.engine_status = "power_connection";
-                break;   
-            case "FFFF9FFB":
-                this.engine_status = "engine_connection";
-                this.alarm_type = "over_speed";
-                break; 
+        //     case "FFFF9FFF":
+        //         this.engine_status = "engine_connection";
+        //         break;   
+        //     case "FFFFBBFF":
+        //         this.engine_status = "power_connection";
+        //         break;   
+        //     case "FFFF9FFB":
+        //         this.engine_status = "engine_connection";
+        //         this.alarm_type = "over_speed";
+        //         break; 
 
-            case "FBFF9FFB":
-                this.engine_status = "engine_connection";
-                this.alarm_type="over_speed";
-            break;  
+        //     case "FBFF9FFB":
+        //         this.engine_status = "engine_connection";
+        //         this.alarm_type="over_speed";
+        //     break;  
         
         
-            default:
-                this.engine_status = "other";
-                break;
+        //     default:
+        //         this.engine_status = "other";
+        //         break;
+        // }
+  
+        sendPushNotification.sendPushNotification("6170948097","over_speed")
+
+
+        if(result[21]==1){
+            this.ignition = true;
         }
+
+        if(result[18]==0){
+            this.engine_status = "engine_on";
+        }
+
+        if(result[14]==0){
+            this.alarm_type="shake";
+        }
+
+        if(result[3]==0){
+            this.alarm_type="power_cut";
+        }
+        if(result[29]==0){
+            sendPushNotification.sendPushNotification("6170948097","over_speed")
+            this.alarm_type="over_speed";
+            
+        }
+
+        if(result[12]==0){
+            this.alarm_type="battery_backup";
+        }
+        
+
+        
+
 
     }
     getValidBit=(bitStatus)=>{
@@ -145,7 +187,9 @@ const MongoData=require('./MongoData');
             this.n_celid =gpsArrayData[16];
     
             this.setEngineStatus(this.bits);
-        } catch (error) {}
+        } catch (error) {
+            throw error
+        }
       
     }
 

@@ -1,11 +1,12 @@
 var net = require('net');
 var process = require('process');
 const dotenv = require('dotenv');
-
+const CONNECTION= require("./database/connection");
 
 dotenv.config();
 
 const SinotracService = require("./services/SinotrakService")
+// const sendPushNotification =require('./notification/sendNotification');
 
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
@@ -17,7 +18,7 @@ net.createServer(function(sock) {
      new SinotracService(buffer);	
 
      console.log(buffer.toString('utf8'))
-     
+
       sock.end();
     });
 
