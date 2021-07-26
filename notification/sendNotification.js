@@ -7,23 +7,42 @@ const pushNotification = require('./models/pushNotificationModel');
 const loadDB = require('./loadMongoDb');
 const axios = require('axios').default;
 
-
-
-const insertInAppNotification = async function (imei_id, alert_type) {
-    try{
+const sendNotification = async function (imei_id, alert_type) {
+    try {
         loadDB();
+        let finalOutput = {};
         let alertInfo = await getAlertInfo(imei_id, alert_type);
+        if(alertInfo.responseCode){
+            if (alertInfo.responseCode === 1000){
+                let ownerId = alertInfo.ownerId;
+                let truckInfo = await getTruckNum(imei_id);
+                if(truckInfo.responseCode){
+                    if(truckInfo.responseCode === 1000){
+                        let truck_num = truckInfo.truck_no;
+                        let data = getData(imei_id, alert_type, truck_num);
+                        if (data.responseCode){
+                            finalOutput.responseCode = 1002;
+                            finalOutput.status = 'failed';
+                            finalOutput.message = 'wrong alert_type';
+                            TLDB.close();
+                            GPSDB.close();
+                            mongoose.connection.close();
+                            return finalOutput;
+                        } else {
 
-        if (alertInfo.responseCode === 1000){
-            let truckInfo = await getTruckNum(imei_id);
-            if(truckInfo.responseCode){
-                if(truckInfo.responseCode === 1000){
-                    let truck_num = truckInfo.truck_no;
-                    let info = await insertInNotification(imei_id, alert_type, truck_num);
-                    TLDB.close();
-                    GPSDB.close();
-                    mongoose.connection.close();
-                    return info;
+                            let info = await insertInAppNotification(data);
+                            let pushInfo = await sendFCM(ownerId, data);
+                            TLDB.close();
+                            GPSDB.close();
+                            mongoose.connection.close();
+                            return pushInfo;
+                        }
+                    } else {
+                        TLDB.close();
+                        GPSDB.close();
+                        mongoose.connection.close();
+                        return truckInfo;
+                    }
                 } else {
                     TLDB.close();
                     GPSDB.close();
@@ -34,45 +53,21 @@ const insertInAppNotification = async function (imei_id, alert_type) {
                 TLDB.close();
                 GPSDB.close();
                 mongoose.connection.close();
-                return truckInfo;
+                return alertInfo;
             }
         } else {
             TLDB.close();
             GPSDB.close();
             mongoose.connection.close();
             return alertInfo;
-        }   
-    } catch (err){
-        TLDB.close();
-        GPSDB.close();
-        mongoose.connection.close();
-        return err;
-    }
-}
-
-const sendPushNotification = async function (imei_id, alert_type) {
-    try{
-        console.log("send push call")
-
-        loadDB();
-
-        let finalOutput = await getAlertInfo(imei_id, alert_type);
-        if(finalOutput.responseCode === 1000){
-            finalOutput = await sendFcm(imei_id, alert_type, finalOutput.ownerId);
         }
-        TLDB.close();
-        GPSDB.close();
-        mongoose.connection.close();
-        return finalOutput;
-    } catch (err){
         
+    } catch (error) {
         TLDB.close();
         GPSDB.close();
         mongoose.connection.close();
-        return err;
+        return error;
     }
-    
-    
 }
 
 const getAlertInfo = async function (imei_id, alert_type) {
@@ -108,29 +103,16 @@ const getAlertInfo = async function (imei_id, alert_type) {
     
 }
 
-const sendFcm = async function (imei_id, alert_type, owner_id) {
-    let truckInfo = await getTruckNum(imei_id);
-    if(truckInfo.responseCode){
-        if(truckInfo.responseCode === 1000){
-            let truck_num = truckInfo.truck_no;
-            let tokenInfo = await getToken(owner_id, truck_num, alert_type, imei_id);
-            return tokenInfo;
-        } else {
-            return truckInfo;
-        }
-    } else {
-        return truckInfo;
-    }
-}
 
-const getToken = async function (owner_id, truck_num, alert_type, imei_id){
+
+const sendFCM = async function (owner_id, body){
     try {
         let finalOutput = {};
         let tokenInfo = await TLDB.query(notificationQueries.getFcmToken, [owner_id]);
         if (tokenInfo.length > 0) {
             let tokens = [];
             tokens.push(tokenInfo[0].token);
-            let body = getData(imei_id, alert_type, truck_num);
+
             const payload = {
                 'registration_ids': tokens,
                 'data': body,
@@ -277,20 +259,13 @@ const getData = function ( imei_id, alert_type, truck_num ){
     }
 }
 
-const insertInNotification = async function (imei_id, alert_type, truck_num){
+const insertInAppNotification = async function (data){
     try{
-        let finalOutput = {};
-        let data = getData(imei_id, alert_type, truck_num);
-        if (data.responseCode){
-            finalOutput.responseCode = 1002;
-            finalOutput.status = 'failed';
-            finalOutput.message = 'wrong alert_type';
-        } else {
-            await notification.insertMany(data);
-            finalOutput.responseCode = 1000;
-            finalOutput.status = 'sucess';
-            finalOutput.message = 'in app notification added';
-        }
+        
+        await notification.insertMany(data);
+        finalOutput.responseCode = 1000;
+        finalOutput.status = 'sucess';
+        finalOutput.message = 'in app notification added';
         return finalOutput;
 
     } catch (error){
@@ -330,21 +305,17 @@ const getTruckNum = async function (imei_id) {
     }
 }
 
-/*
- const print = async () => {
-   let res = await insertInAppNotification (9170544298, 'geofence_in');
-   console.log(res);
-}
 
-
-const print = async () => {
-    let res = await sendPushNotification(9170544298, 'geofence_in');
+ 
+/* const print = async () => {
+    let res = await sendNotification(9170544298, 'geofence_in');
     console.log(res);
  }
 
 
-print();
-*/
+print(); */
 
 
-exports.sendPushNotification = sendPushNotification;
+module.exports = {
+    sendNotification
+}

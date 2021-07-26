@@ -1,5 +1,7 @@
  //var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFF7BBFF,470,03,00830,61182#";
- const sendPushNotification =require('../notification/sendNotification');
+
+ const { sendNotification } = require('../notification/sendNotification');
+
  const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
@@ -12,8 +14,8 @@ const MongoData=require('./MongoData');
     valid_bit=0;//gps valid A gps invalid V
     lat=0;
     lng=0;
-    lat_direction=0;
-    lng_direction=0;
+    lat_direction="";
+    lng_direction="";
     speed = 0;
     direct= 0;
     date = 0;
@@ -25,6 +27,7 @@ const MongoData=require('./MongoData');
     engine_status="engine_off";
     alarm_type=0;
     ignition=false;
+    voltage_level="";
     rawData=0;
 
     constructor(rawData) {
@@ -67,6 +70,10 @@ const MongoData=require('./MongoData');
         return (parseInt(hex, 16).toString(2)).padStart(8, '0');
     }
 
+    send = async function () {
+        let res = await sendNotification(9170544298, 'geofence_in');
+        console.log(res);
+    }
     setEngineStatus  = (bits) =>{
 
         // var result = bits.forEach(str => {
@@ -130,6 +137,7 @@ const MongoData=require('./MongoData');
 
         if(result[14]==0){
             this.alarm_type="shake";
+            
         }
 
         if(result[3]==0){
@@ -139,7 +147,12 @@ const MongoData=require('./MongoData');
         if(result[29]==0){
         //    sendPushNotification.sendPushNotification("6170948097","over_speed")
             this.alarm_type="over_speed";
+            this.send();
             
+        }
+
+        if(result[12]==0){
+            this.voltage_level="battery_backup";
         }
 
         if(result[12]==0){
