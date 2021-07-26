@@ -117,7 +117,7 @@ const MongoData=require('./MongoData');
         //         break;
         // }
   
-        sendPushNotification.sendPushNotification("6170948097","over_speed")
+    //    sendPushNotification.sendPushNotification("6170948097","over_speed")
 
 
         if(result[21]==1){
