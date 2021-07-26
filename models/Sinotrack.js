@@ -1,8 +1,8 @@
  //var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFF7BBFF,470,03,00830,61182#";
+ const pushNotificationUrl='http://j.trucklagbe.com:6006/';
 
- const { sendNotification } = require('../notification/sendNotification');
-
- const KNOT=1.852000;
+ const axios = require('axios').default;
+const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
  class Sinotrack {
@@ -30,7 +30,7 @@ const MongoData=require('./MongoData');
     voltage_level="";
     rawData=0;
 
-    constructor(rawData) {
+    constructor(rawData,sendNotification) {
       this.rawData = rawData;
       this.makeObject();
     }
@@ -70,9 +70,31 @@ const MongoData=require('./MongoData');
         return (parseInt(hex, 16).toString(2)).padStart(8, '0');
     }
 
-    send = async function () {
-        let res = await sendNotification(9170544298, 'geofence_in');
-        console.log(res);
+    sendPushNotification = async function (imei_id,alert_type) {
+        try {
+            axios({
+                url: pushNotificationUrl,
+                method: 'POST',
+                data: {
+                  imei_id: imei_id,
+                  alert_type:alert_type
+                }
+              })
+                  
+        } catch (error) {
+          //  throw error
+        }
+     
+        //   axios({
+        //     url: 'https://fcm.googleapis.com/fcm/send',
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'key=8zcZdn2W3KPIXyFUGN8-93f0CZlkrQD87DAx0U8h5AM_-yaig'
+        //     },
+        //     data: payload
+        // });
+ 
     }
     setEngineStatus  = (bits) =>{
 
@@ -124,8 +146,7 @@ const MongoData=require('./MongoData');
         //         break;
         // }
   
-       // sendPushNotification.sendPushNotification("6170948097","over_speed")
-//console.log(result)
+
 
         if(result[21]==1){
             this.ignition = true;
@@ -145,9 +166,8 @@ const MongoData=require('./MongoData');
         }
 
         if(result[29]==0){
-        //    sendPushNotification.sendPushNotification("6170948097","over_speed")
             this.alarm_type="over_speed";
-            this.send();
+            this.sendPushNotification("6170948097","over_speed")
             
         }
 
