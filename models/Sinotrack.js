@@ -117,8 +117,8 @@ const MongoData=require('./MongoData');
         //         break;
         // }
   
-    //    sendPushNotification.sendPushNotification("6170948097","over_speed")
-
+       // sendPushNotification.sendPushNotification("6170948097","over_speed")
+console.log(result)
 
         if(result[21]==1){
             this.ignition = true;
@@ -135,6 +135,7 @@ const MongoData=require('./MongoData');
         if(result[3]==0){
             this.alarm_type="power_cut";
         }
+
         if(result[29]==0){
             sendPushNotification.sendPushNotification("6170948097","over_speed")
             this.alarm_type="over_speed";

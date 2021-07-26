@@ -53,7 +53,9 @@ const insertInAppNotification = async function (imei_id, alert_type) {
 const sendPushNotification = async function (imei_id, alert_type) {
     try{
         console.log("send push call")
+
         loadDB();
+
         let finalOutput = await getAlertInfo(imei_id, alert_type);
         if(finalOutput.responseCode === 1000){
             finalOutput = await sendFcm(imei_id, alert_type, finalOutput.ownerId);
@@ -63,6 +65,7 @@ const sendPushNotification = async function (imei_id, alert_type) {
         mongoose.connection.close();
         return finalOutput;
     } catch (err){
+        
         TLDB.close();
         GPSDB.close();
         mongoose.connection.close();
