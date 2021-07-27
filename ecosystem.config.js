@@ -1,15 +1,23 @@
 module.exports = {
+
   apps : [{
     script: 'sinotrackServer.js',
     instances : "2",
-    exec_mode : "cluster"
+    exec_mode : "cluster",
+    env: {
+      NODE_ENV: "development"
+    },
+    env_local: {
+      NODE_ENV: "local",
+    },
+    env_staging: {
+      NODE_ENV: "staging",
+    },
+    env_production: {
+      NODE_ENV: "production",
+    }
   }],
-  env_production: {
-    NODE_ENV: "production"
- },
- env_development: {
-    NODE_ENV: "development"
- },
+
    
  
   // Deployment Configuration TlTech
@@ -22,7 +30,7 @@ module.exports = {
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
        "path" : "/Users/hello/Gps",
        "pre-setup" : "mkdir TestDeploy",
-       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env local'
     },
 
     production : {
