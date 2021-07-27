@@ -10,8 +10,8 @@ module.exports = {
     env_local: {
       NODE_ENV: "local",
     },
-    env_staging: {
-      NODE_ENV: "staging",
+    env_dev: {
+      NODE_ENV: "dev",
     },
     env_production: {
       NODE_ENV: "production",
