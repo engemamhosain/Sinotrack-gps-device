@@ -21,11 +21,22 @@ module.exports = {
    
  
   // Deployment Configuration TlTech 
+  //TlTech419@
      //   "key"  : "/Users/hello/other/key/id_rsa",
   deploy : {
-    local : {
 
-      "host" : ["localhost"],
+    local1 : {
+
+      "host" : ["127.0.0.1"],
+       "ref"  : "origin/master",
+       "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
+       "path" : " /Users/hello/Gps/Deploy",
+       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env local'
+    },
+
+    local : {
+      "user" : "hello",
+      "host" : ["127.0.0.1"],
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
        "path" : " /Users/hello/Gps/Deploy/TestDeploy",
@@ -50,8 +61,8 @@ module.exports = {
        "port":"40405",
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : "/data4tb/other/Sintorack/TestDeploy",
-       "pre-setup" : "mkdir TestDeploy",
+       "path" : "/data4tb/other/Sintorack/Deploy",
+  //     "pre-setup" : "mkdir TestDeploy",
   //     'post-deploy' : 'npm install && pm2 delete sinotrackServer && pm2 start ecosystem.config.js --env production'
        'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js --env production'
     }
