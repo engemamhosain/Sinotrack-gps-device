@@ -28,7 +28,7 @@ module.exports = {
       "host" : ["localhost"],
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : " /Users/hello/Gps/TestDeploy",
+       "path" : " /Users/hello/Gps/Deploy/TestDeploy",
        'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env local'
     },
 
