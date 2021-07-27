@@ -57,7 +57,7 @@ module.exports = {
        "path" : "/data4tb/other/Sintorack/Deploy",
   //     "pre-setup" : "mkdir TestDeploy",
   //     'post-deploy' : 'npm install && pm2 delete sinotrackServer && pm2 start ecosystem.config.js --env production'
-       'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js --env production'
+       'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js --env dev'
     }
 
 
