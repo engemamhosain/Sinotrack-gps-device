@@ -24,8 +24,8 @@ class MongolData {
     charging=0;
     alarm_type=0;
     gps_tracking=0;
-    voltage_level=0;
-    gsm_strength=0;
+    voltage_level="power";
+    gsm_strength="no signal";
 
     constructor(contex) {
         try {

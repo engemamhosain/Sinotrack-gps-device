@@ -1,5 +1,5 @@
 const INSERT_QUERY = require("../config/mysqlQuery");
-// const CONNECTION= require("../database/connection");
+ const CONNECTION= require("../database/connection");
  const MongoDbClient = require("../database/mongo_connection");
  //const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
@@ -18,7 +18,7 @@ const collection_name=["gps_device_location_"];
             continue;
           }
           this.sinotrack = new Sinotrack(arrayofBuffer[i]);
-       //  this.updateGpsDataToMysql();
+         this.updateGpsDataToMysql();
          this.updateGpsDataToMongo();
 
         }

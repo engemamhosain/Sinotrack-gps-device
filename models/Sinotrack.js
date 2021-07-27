@@ -1,10 +1,10 @@
- //var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFF7BBFF,470,03,00830,61182#";
- const pushNotificationUrl='http://j.trucklagbe.com:6006/';
 
  const axios = require('axios').default;
 const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
+
+const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","battery_backup","shock_alarm","over_speed"]
  class Sinotrack {
    
     imei_id = 0;
@@ -24,13 +24,13 @@ const MongoData=require('./MongoData');
     n_mnc = 0;
     n_lac = 0;
     n_celid = 0;
-    engine_status="engine_off";
-    alarm_type=0;
+    engine_status=GPS_STATE_NAME[1];
+    alarm_type="normal";
     ignition=false;
     voltage_level="";
     rawData=0;
 
-    constructor(rawData,sendNotification) {
+    constructor(rawData) {
       this.rawData = rawData;
       this.makeObject();
     }
@@ -72,119 +72,62 @@ const MongoData=require('./MongoData');
 
     sendPushNotification = async function (imei_id,alert_type) {
         try {
+
             axios({
-                url: pushNotificationUrl,
+                url: process.env.NOTIFICATION_URL,
                 method: 'POST',
                 data: {
                   imei_id: imei_id,
                   alert_type:alert_type
                 }
-              })
+              }).then(function(res){
+                //  console.log(res)
+
+              }).catch(function(err){
+                   // throw err
+              });
                   
         } catch (error) {
           //  throw error
         }
-     
-        //   axios({
-        //     url: 'https://fcm.googleapis.com/fcm/send',
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'key=8zcZdn2W3KPIXyFUGN8-93f0CZlkrQD87DAx0U8h5AM_-yaig'
-        //     },
-        //     data: payload
-        // });
  
     }
     setEngineStatus  = (bits) =>{
 
-        // var result = bits.forEach(str => {
-        //     result += this.hex2bin(str)
-        // })
-
        let result = this.hex2bin(bits)
-
-        // switch (bits) {
-        //     case "FBF7BBFF":
-        //         this.engine_status = "charge_drained";
-        //         break;
-        //     case "FFF79FFF":
-        //         this.engine_status = "earthing_connected";
-        //         break;   
-        //     case "FFF7BBFF":
-        //         this.engine_status = "battery_backup";
-        //         break;   
-                
-                
-        //     case "FBF7BBFF":
-        //         this.engine_status = "battery_backup";
-        //         break;   
-
-        //     case "FBF79FFF":
-        //         this.engine_status = "battery_backup";
-        //         break;   
-
-        //     case "FFFF9FFF":
-        //         this.engine_status = "engine_connection";
-        //         break;   
-        //     case "FFFFBBFF":
-        //         this.engine_status = "power_connection";
-        //         break;   
-        //     case "FFFF9FFB":
-        //         this.engine_status = "engine_connection";
-        //         this.alarm_type = "over_speed";
-        //         break; 
-
-        //     case "FBFF9FFB":
-        //         this.engine_status = "engine_connection";
-        //         this.alarm_type="over_speed";
-        //     break;  
-        
-        
-        //     default:
-        //         this.engine_status = "other";
-        //         break;
-        // }
-  
-
 
         if(result[21]==1){
             this.ignition = true;
         }
 
         if(result[18]==0){
-            this.engine_status = "engine_on";
+            this.engine_status = GPS_STATE_NAME[0];
         }
 
         if(result[14]==0){
-            this.alarm_type="shake";
+            this.alarm_type=GPS_STATE_NAME[5];
             
         }
 
         if(result[3]==0){
-            this.alarm_type="power_cut";
+            this.alarm_type=GPS_STATE_NAME[2];
+            this.sendPushNotification(  this.imei_id ,GPS_STATE_NAME[3])
         }
 
         if(result[29]==0){
-            this.alarm_type="over_speed";
-            this.sendPushNotification("6170948097","over_speed")
+            this.alarm_type=GPS_STATE_NAME[6];
+            this.sendPushNotification(  this.imei_id ,GPS_STATE_NAME[6])
             
         }
 
         if(result[12]==0){
-            this.voltage_level="battery_backup";
+            this.voltage_level=GPS_STATE_NAME[4];
         }
-
-        if(result[12]==0){
-            this.alarm_type="battery_backup";
-        }
-        
-
-        
 
 
     }
     getValidBit=(bitStatus)=>{
+
        let status="";
         try {
             status = bitStatus=="A"?"GPS valid":"GPS invalid"
@@ -192,6 +135,7 @@ const MongoData=require('./MongoData');
             
         }
         return status;
+
     }
 
     makeObject=()=> {
@@ -203,8 +147,7 @@ const MongoData=require('./MongoData');
             this.imei_id = gpsArrayData[1];
             this.version =gpsArrayData[2];
             this.time = gpsArrayData[3];
-            this.valid_bit= this.getValidBit(gpsArrayData[4]);
-            
+            this.valid_bit= this.getValidBit(gpsArrayData[4]);           
 
             this.lat = this.lat_ddm_to_decimal(gpsArrayData[5]);
             this.lat_direction = gpsArrayData[6];
@@ -226,8 +169,7 @@ const MongoData=require('./MongoData');
         }
       
     }
-
-    
+  
   }
 
   module.exports = Sinotrack;

@@ -1,8 +1,7 @@
 var net = require('net');
 var process = require('process');
 const dotenv = require('dotenv');
-const CONNECTION= require("./database/connection");
-console.log(process.env.NODE_ENV)
+
 if(process.env.NODE_ENV){
 
   dotenv.config({
