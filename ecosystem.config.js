@@ -25,21 +25,14 @@ module.exports = {
      //   "key"  : "/Users/hello/other/key/id_rsa",
   deploy : {
 
-    local1 : {
-
-      "host" : ["127.0.0.1"],
-       "ref"  : "origin/master",
-       "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : " /Users/hello/Gps/Deploy",
-       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env local'
-    },
+  
 
     local : {
-      "user" : "hello",
-      "host" : ["127.0.0.1"],
+     
+      "host" : ["localhost"],
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : " /Users/hello/Gps/Deploy/TestDeploy",
+       "path" : "/Users/hello/Gps/Deploy/TestDeploy",
        'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env local'
     },
 
