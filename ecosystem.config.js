@@ -20,7 +20,7 @@ module.exports = {
 
    
  
-  // Deployment Configuration TlTech
+  // Deployment Configuration TlTech 
      //   "key"  : "/Users/hello/other/key/id_rsa",
   deploy : {
     local : {
