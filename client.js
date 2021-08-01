@@ -6,18 +6,40 @@ var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130
 //var gps_data="*HQ,6170937422,V1,005233,A,2343.1337,N,09028.0470,E,018.11,130,110721,FFFF9FFB,470,02,00049,4606#*HQ,6170937422,V1,005243,A,2343.0986,N,09028.0846,E,016.55,139,110721,FFFF9FFB,470,02,00049,4606#*HQ,100,V1,005243,A,2343.0986,N,09028.0846,E,016.55,139,110721,FBF7B9FF,470,02,00049,4606#";
 var net = require('net');
 var client = new net.Socket();
+require('events').EventEmitter.defaultMaxListeners = 500;
 
-
-callFunc=()=>{
-//client.connect(6968, '127.0.0.1', function() {
-	client.connect(6968, '103.199.168.131', function() {
+async function callFunc(i){
+client.connect(6968, '127.0.0.1', function() {
+//	client.connect(6968, '103.199.168.131', function() {
 		console.log('Connected');
+		var gps_data=`*HQ,6170948097${i},V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFFFB9FB,470,03,00830,61182#`;
+
 			client.write(gps_data);
 			
 	});
 }	
 	
-callFunc();
+
+function resolveAfter2Seconds(i) {
+	return new Promise(resolve => {
+	  setTimeout(() => {
+		callFunc(i);
+		resolve('resolved');
+
+	  }, 100);
+	});
+  }
+
+  
+async function loop(){
+	for (let i = 0; i < 5; i++) {
+		await resolveAfter2Seconds(i);
+		
+	}
+}
+loop();
+
+//callFunc();
 
 // setInterval(() => {
 // 	callFunc();

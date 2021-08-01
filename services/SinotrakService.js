@@ -1,5 +1,5 @@
 const INSERT_QUERY = require("../config/mysqlQuery");
- const CONNECTION= require("../database/connection");
+ //const CONNECTION= require("../database/connection");
  const MongoDbClient = require("../database/mongo_connection");
  //const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
@@ -9,9 +9,11 @@ const collection_name=["gps_device_location_"];
  class SinotrackService {
 
       sinotrack = null;
+      CONNECTION=null
 
-    constructor(buffers) {
+    constructor(buffers,CONNECTION) {
       try {
+        this.CONNECTION = CONNECTION;
         let arrayofBuffer=buffers.toString('utf8').split("#");
         for(var i=0;i<arrayofBuffer.length;i++){
           if(arrayofBuffer[i].length<10){
@@ -38,11 +40,12 @@ const collection_name=["gps_device_location_"];
 
           if(this.sinotrack!=null) {
 
-            CONNECTION.getConnection((err, connection) => {
+            this.CONNECTION.getConnection((err, connection) => {
               if(err) throw err;
 
 
               connection.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
+                console.log(result)
   
                   connection.release(); // return the connection to pool
                   if(err) throw err;
@@ -70,7 +73,7 @@ const collection_name=["gps_device_location_"];
     }
 
    
-      async updateGpsDataToMongo() {
+       updateGpsDataToMongo() {
       try {
         
      
@@ -78,7 +81,7 @@ const collection_name=["gps_device_location_"];
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
-
+             console.log(parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME));
               if(obj.bits==imei_ids[0] || obj.bits==imei_ids[1]){
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                

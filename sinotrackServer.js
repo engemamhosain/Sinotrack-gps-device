@@ -1,6 +1,8 @@
 var net = require('net');
 var process = require('process');
 const dotenv = require('dotenv');
+var mysql = require('mysql');
+
 
 if(process.env.NODE_ENV){
 
@@ -11,6 +13,14 @@ if(process.env.NODE_ENV){
   dotenv.config();
 }
 
+const {DB_OPTION} = require("./config/dbConfig")
+
+const CONNECTION = mysql.createPool({
+  host:DB_OPTION[0].host,
+  user: DB_OPTION[0].user,
+  password:DB_OPTION[0].password,
+  database: DB_OPTION[0].database
+});
 
 const SinotracService = require("./services/SinotrakService")
 
@@ -23,7 +33,7 @@ net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
       console.log(process.env.NODE_ENV)
-     new SinotracService(buffer);	
+     new SinotracService(buffer,CONNECTION);	
 
      console.log(buffer.toString('utf8'))
 
