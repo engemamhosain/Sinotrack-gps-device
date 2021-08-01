@@ -81,6 +81,8 @@ const collection_name=["gps_device_location_"];
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
+
+             console.log(date);
              console.log(parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME));
               if(obj.bits==imei_ids[0] || obj.bits==imei_ids[1]){
 
