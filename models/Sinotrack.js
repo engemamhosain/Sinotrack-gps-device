@@ -81,14 +81,14 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
                   alert_type:alert_type
                 }
               }).then(function(res){
-                //  console.log(res)
+                  console.log(res)
 
               }).catch(function(err){
-                   // throw err
+                    throw err
               });
                   
         } catch (error) {
-          //  throw error
+            throw error
         }
  
     }
@@ -144,7 +144,7 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
             let gpsArrayData = this.rawData.split(",");
 
             this.cmd = gpsArrayData[0];
-            this.imei_id = gpsArrayData[1];
+            this.imei_id = parseInt(gpsArrayData[1]);
             this.version =gpsArrayData[2];
             this.time = gpsArrayData[3];
             this.valid_bit= this.getValidBit(gpsArrayData[4]);           

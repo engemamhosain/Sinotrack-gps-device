@@ -5,7 +5,6 @@ var mysql = require('mysql');
 
 
 if(process.env.NODE_ENV){
-
   dotenv.config({
     path:`${__dirname}/.env.${process.env.NODE_ENV}`
   });

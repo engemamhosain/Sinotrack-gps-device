@@ -9,6 +9,7 @@ let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
 
 class MongoDbClient{
     obj=null;
+    
     constructor(obj) {
     this.obj=obj;
       this.insertMongoData(obj);
@@ -27,6 +28,12 @@ class MongoDbClient{
             const collection_gps_device_location = database.collection(collection_name+collectionName);
             collection_gps_device_location.insertOne(obj,function(err, item){
                 client.close();
+
+                if(err){
+                    throw err
+               }else{
+                 console.log(item);
+               }
             });
 
         });

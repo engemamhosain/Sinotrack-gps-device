@@ -88,9 +88,13 @@ const collection_name=["gps_device_location_"];
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
+                  console.log("in 10 minutes")
+                }else{
+                  console.log("not in 10 minutes")
                 }
+
               }else{
-          
+                console.log(obj);
                 new MongoDbClient(obj);
               }
                 
