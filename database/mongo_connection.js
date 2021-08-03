@@ -32,7 +32,7 @@ class MongoDbClient{
                 if(err){
                     throw err
                }else{
-                 console.log(item);
+                // console.log(item);
                }
             });
 

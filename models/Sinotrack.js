@@ -81,10 +81,10 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
                   alert_type:alert_type
                 }
               }).then(function(res){
-                  console.log(res)
+             //     console.log(res)
 
               }).catch(function(err){
-                    throw err
+                   // throw err
               });
                   
         } catch (error) {

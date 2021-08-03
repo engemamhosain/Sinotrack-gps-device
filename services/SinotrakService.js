@@ -1,15 +1,16 @@
-const INSERT_QUERY = require("../config/mysqlQuery");
+const QUERY = require("../config/mysqlQuery");
  //const CONNECTION= require("../database/connection");
  const MongoDbClient = require("../database/mongo_connection");
  //const MongoCon = require("../database/mongo_connection");
 const Sinotrack = require("../models/Sinotrack");
+const Geofence = require("../models/Geofence");
 const MONGO_INTERVAL_TIME = 10;
 const imei_ids=["FFFF9FFF","FFFFB9FF"]
 const collection_name=["gps_device_location_"];
  class SinotrackService {
 
       sinotrack = null;
-      CONNECTION=null
+      CONNECTION = null
 
     constructor(buffers,CONNECTION) {
       try {
@@ -20,7 +21,13 @@ const collection_name=["gps_device_location_"];
             continue;
           }
           this.sinotrack = new Sinotrack(arrayofBuffer[i]);
+
          this.updateGpsDataToMysql();
+
+         if(this.sinotrack.speed>5){
+          this.setGeofencInfo();
+         }
+        
          this.updateGpsDataToMongo();
 
         }
@@ -44,8 +51,8 @@ const collection_name=["gps_device_location_"];
               if(err) throw err;
 
 
-              connection.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
-                console.log(result)
+              connection.query(QUERY.INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
+              
   
                   connection.release(); // return the connection to pool
                   if(err) throw err;
@@ -71,6 +78,38 @@ const collection_name=["gps_device_location_"];
          throw error
         }
     }
+
+    setGeofencInfo= () => {
+     
+      try {
+      
+
+          if(this.sinotrack!=null) {
+            let mysqlData=this.sinotrack.getMysqlObject();
+
+            this.CONNECTION.getConnection((err, connection) => {
+              if(err) throw err;
+
+
+              connection.query(QUERY.GET_GEOFENCE_QUERY,mysqlData.imei_id, function(err, result){
+                new Geofence(result,mysqlData);
+  
+                  connection.release(); // return the connection to pool
+                  if(err) throw err;
+
+              });
+
+          });
+
+          }else{
+            console.log("this.sinotrack is null")
+          }
+  
+        } catch (error) {    
+         throw error
+        }
+    }
+
 
    
        updateGpsDataToMongo() {
@@ -110,11 +149,6 @@ const collection_name=["gps_device_location_"];
         } catch (error) {  
           throw error
         }
-    }
-
-
-    async  test() {
-      console.log("test async")
     }
 
 
