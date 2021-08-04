@@ -74,7 +74,7 @@ class Geofence {
              //     console.log(res)
 
               }).catch(function(err){
-                   // throw err
+                    throw err
               });
                   
         } catch (error) {
