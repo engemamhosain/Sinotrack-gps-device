@@ -110,6 +110,8 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
         }
 
         if(result[3]==0){
+            //power cutt
+            this.engine_status=GPS_STATE_NAME[3];
             this.alarm_type=GPS_STATE_NAME[2];
             this.sendPushNotification(  this.imei_id ,GPS_STATE_NAME[3])
         }
@@ -121,6 +123,8 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
         }
 
         if(result[12]==0){
+            //batery backup
+            this.engine_status=GPS_STATE_NAME[3];
             this.voltage_level=GPS_STATE_NAME[4];
         }
 

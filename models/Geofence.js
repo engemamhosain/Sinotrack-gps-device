@@ -1,6 +1,6 @@
 
  const axios = require('axios').default;
- const GEOFENCE_STATUS = ["geo_fence_in","geo_fence_out"]
+ const GEOFENCE_STATUS = ["geofence_in","geofence_out"]
 class Geofence {
 
     GeofenceData=null;
