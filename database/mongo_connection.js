@@ -30,7 +30,7 @@ class MongoDbClient{
             const collection_gps_device_location = database.collection(collection_name+collectionName);
           
             collection_gps_device_location.insertOne(obj,function(err, item){
-                collection_gps_device_location.createIndex({imei_id:1})
+              //  collection_gps_device_location.createIndex({imei_id:1})
                 client.close();
 
                 if(err){
