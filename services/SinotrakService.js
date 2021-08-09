@@ -24,9 +24,10 @@ const collection_name=["gps_device_location_"];
 
          this.updateGpsDataToMysql();
 
-         if(this.sinotrack.speed>5){
-          this.setGeofencInfo();
-         }
+         //standard package 
+        //  if(this.sinotrack.speed>5){
+        //   this.setGeofencInfo(); 
+        //  }
         
          this.updateGpsDataToMongo();
 
@@ -60,13 +61,6 @@ const collection_name=["gps_device_location_"];
               });
 
           });
-
-
-            // CONNECTION.query(INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
-            //   if (err){
-            //     throw err;
-            //   }
-            // });
 
           }
 
@@ -113,27 +107,24 @@ const collection_name=["gps_device_location_"];
 
    
        updateGpsDataToMongo() {
-      try {
-        
-     
+
+      try {     
           if(this.sinotrack!=null) { 
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
 
-             console.log(date);
-             console.log(parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME));
-              if(obj.bits==imei_ids[0] || obj.bits==imei_ids[1]){
+              if(obj.bits==imei_ids[1]){
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
-                  console.log("in 10 minutes")
-                }else{
-                  console.log("not in 10 minutes")
                 }
 
+              }else if(obj.bits==imei_ids[0]){
+                if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
+                  new MongoDbClient(obj);
+                }
               }else{
-                console.log(obj);
                 new MongoDbClient(obj);
               }
                 
@@ -142,8 +133,6 @@ const collection_name=["gps_device_location_"];
             }catch(error){
              throw error;
             }
-
-       
         }  
   
         } catch (error) {  

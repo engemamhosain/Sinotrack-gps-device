@@ -28,7 +28,9 @@ class MongoDbClient{
           let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
            const database  = client.db(DB_OPTION[1].database);
             const collection_gps_device_location = database.collection(collection_name+collectionName);
+          
             collection_gps_device_location.insertOne(obj,function(err, item){
+                collection_gps_device_location.createIndex({imei_id:1})
                 client.close();
 
                 if(err){
