@@ -7,23 +7,20 @@ var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130
 var net = require('net');
 var client = new net.Socket();
 
-require('events').EventEmitter.defaultMaxListeners = 500;
-
-
-
-//23.778249002675743, 90.39780377075259
-
- function test(){
+ function Test(){
 	//client.connect(6968, '127.0.0.1', function() {
 		client.connect(6968, '103.199.168.131', function() {
 			console.log('Connected');
-			var gps_data=`*HQ,9170531658,V1,112605,A,2377.8211,N,09039.7868,E,001.39,000,130717,FFFF9FFB,470,03,00830,61182#`;
+			var gps_data=`*HQ,6170948097,V1,112605,A,2377.8211,N,09039.7868,E,001.39,000,130717,FFFF9FFB,470,03,00830,61182#`;
 	
 				client.write(gps_data);
 				
 		});
 	}
-	test();
+
+	Test();
+
+
 
 async function callFunc(i){
 client.connect(6968, '127.0.0.1', function() {
