@@ -37,14 +37,13 @@ module.exports = {
     },
 
     production : {
-      "key"  : "/Users/hello/other/key/id_rsa",
-       "user" : "system",
-       "host" : ["103.199.168.131"],
-       "port":"40405",
+      "key"  : "/Users/hello/other/key/key.PEM",
+       "user" : "ubuntu",
+       "host" : ["52.221.246.136"],
+       "port":"4770",
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
-       "path" : "/data4tb/other/Sinotrack/TestDeploy",
-       "pre-setup" : "mkdir TestDeploy",
+       "path" : "/home/SinotrackProject/",
        'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
     },
     dev : {
