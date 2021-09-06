@@ -8,6 +8,8 @@ var mysql = require('mysql');
 //   password:DB_OPTION[0].password,
 //   database: DB_OPTION[0].database
 // });
+
+
 const CONNECTION = mysql.createPool({
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
