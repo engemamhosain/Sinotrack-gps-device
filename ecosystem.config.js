@@ -44,7 +44,7 @@ module.exports = {
        "ref"  : "origin/master",
        "repo" : `https://gitlab+deploy-token-509262:JGhetBnT3hsGdesxY6Ea@gitlab.com/emamhasan1137/GpsDeviceLocation.git`,
        "path" : "/home/SinotrackProject/",
-       'post-deploy' : 'npm install && sudo pm2 reload ecosystem.config.js --env production'
+       'post-deploy' : 'npm install && sudo pm2 startOrRestart ecosystem.config.js --env production'
     },
     dev : {
       "key"  : "/Users/hello/other/key/id_rsa",
