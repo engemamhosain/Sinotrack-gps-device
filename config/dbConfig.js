@@ -1,16 +1,16 @@
 
  
 const DB_OPTION=[{
-    host: "103.199.168.131",  
-    user: "tl-builder",
-    password: "B@ri22!R@st@15",
-    database: "Gps_Device"
+    host: process.env.MYSQL_HOST,  
+    user:  process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: MYSQL_DATABASE
 },{
-    port:"19928",
-    host:"103.199.168.131",
-    user:"tl_developer",
-    password:encodeURIComponent('Gw)-W-RwX3nupMN?Owner'),
-    database:"tl_gps_device"
+    port:MONGO_PORT,
+    host:MONGO_HOST,
+    user:MONGO_USER,
+    password:MONGO_PASSOWRD,
+    database:MONGO_DATABASE
 
 }
 ]
