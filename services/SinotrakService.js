@@ -10,6 +10,7 @@ const collection_name=["gps_device_location_"];
  class SinotrackService {
 
       sinotrack = null;
+
       CONNECTION = null
 
     constructor(buffers,CONNECTION) {
