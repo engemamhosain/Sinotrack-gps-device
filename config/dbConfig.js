@@ -16,8 +16,8 @@ const DB_OPTION=[{
 ]
 
 
-
-const MONGO_DB_URI=`mongodb://${DB_OPTION[1].user}:${DB_OPTION[1].password}@${DB_OPTION[1].host}:${DB_OPTION[1].port}/${DB_OPTION[1].database}`;
+const password=encodeURIComponent(DB_OPTION[1].password);
+const MONGO_DB_URI=`mongodb://${DB_OPTION[1].user}:${password}@${DB_OPTION[1].host}:${DB_OPTION[1].port}/${DB_OPTION[1].database}`;
 
 module.exports = {DB_OPTION,MONGO_DB_URI};
 
