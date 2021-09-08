@@ -5,7 +5,7 @@ const QUERY = require("../config/mysqlQuery");
 const Sinotrack = require("../models/Sinotrack");
 const Geofence = require("../models/Geofence");
 const MONGO_INTERVAL_TIME = 10;
-const imei_ids=["FFFF9FFF","FFFFB9FF"]
+const imei_ids=["FFFF9FFF","FFFFB9FF","FFFFBBFF"]
 const collection_name=["gps_device_location_"];
  class SinotrackService {
 
@@ -115,7 +115,7 @@ const collection_name=["gps_device_location_"];
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
 
-              if(obj.bits==imei_ids[1]){
+              if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
