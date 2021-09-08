@@ -17,7 +17,7 @@ class MongoDbClient{
 
     
     insertMongoData =(obj)=> {
-      console.log(MONGO_DB_URI)
+      
 
         MongoClient.connect(MONGO_DB_URI,{useUnifiedTopology: true},function(err, client) {
           if(err){
