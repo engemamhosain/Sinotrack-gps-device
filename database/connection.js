@@ -9,7 +9,7 @@ var mysql = require('mysql');
 //   database: DB_OPTION[0].database
 // });
 
-
+//this config from sinotrackServer.js
 const CONNECTION = mysql.createPool({
   connectionLimit: 1000,
   host:DB_OPTION[0].host,
