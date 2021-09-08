@@ -11,11 +11,14 @@ var mysql = require('mysql');
 
 
 const CONNECTION = mysql.createPool({
-
+  connectionLimit: 1000,
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
-  database: DB_OPTION[0].database
+  database: DB_OPTION[0].database,
+  connectTimeout: 3000,
+  waitForConnections: true,
+  queueLimit: 0 
 });
 
 
