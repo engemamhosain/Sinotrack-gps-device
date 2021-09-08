@@ -4,6 +4,10 @@ const dotenv = require('dotenv');
 var mysql = require('mysql');
 
 
+require('events').EventEmitter.prototype._maxListeners = 1000;
+require('events').defaultMaxListeners = 1000;
+
+
 if(process.env.NODE_ENV){
   dotenv.config({
     path:`${__dirname}/.env.${process.env.NODE_ENV}`
@@ -34,7 +38,7 @@ net.createServer(function(sock) {
       console.log(process.env.NODE_ENV)
      new SinotracService(buffer,CONNECTION);	
 
-     console.log(buffer.toString('utf8'))
+    // console.log(buffer.toString('utf8'))
 
       sock.end();
     });
@@ -46,18 +50,20 @@ net.createServer(function(sock) {
 
 console.log('Server listening on ' + HOST +':'+ PORT,process.env);
 
-// process.on('unhandledRejection', (reason, p) => {
-// throw reason
-// }).on('uncaughtException', err => {
-//   console.log(err)
-//   //process.exit(1);
-// });
-
 
 process.on('unhandledRejection', (reason, p) => {
-    console.error(reason, 'Unhandled Rejection at Promise', p);
+  //  console.error(reason, 'Unhandled Rejection at Promise', p);
 })
   .on('uncaughtException', err => {
-    console.error(err, 'Uncaught Exception thrown');
+   // console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);
+  });
+
+  process.on('warning', function (err) {
+    if ( 'MaxListenersExceededWarning' == err.name ) {
+      console.log('max listener');
+      // write to log function
+//      process.exit(1); // its up to you what then in my case script was hang
+
+    }
   });

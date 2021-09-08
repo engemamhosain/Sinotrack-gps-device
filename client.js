@@ -7,6 +7,7 @@ var gps_data="*HQ,6170948097,V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130
 var net = require('net');
 var client = new net.Socket();
 
+
  function Test() {
 	//client.connect(6968, '127.0.0.1', function() {
 		client.connect(6002, '52.221.246.136', function() {
