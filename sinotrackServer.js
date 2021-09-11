@@ -81,3 +81,15 @@ process.on('unhandledRejection', (reason, p) => {
 
     }
   });
+
+
+  server.on('error', (e) => {
+    console.log('Address in use, retrying...');
+    // if (e.code === 'EADDRINUSE') {
+    //   console.log('Address in use, retrying...');
+    //   setTimeout(() => {
+    //     server.close();
+    //     server.listen(PORT, HOST);
+    //   }, 1000);
+    // }
+  });
