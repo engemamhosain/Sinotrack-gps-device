@@ -55,7 +55,7 @@ const collection_name=["gps_device_location_"];
 
               connection.query(QUERY.INSERT_QUERY,this.sinotrack.getMysqlObject(), function(err, result){
               
-                console.warn(result)
+             //   console.warn(result)
                   connection.release(); // return the connection to pool
                   if(err) throw err;
 
