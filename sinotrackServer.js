@@ -83,7 +83,7 @@ process.on('unhandledRejection', (reason, p) => {
   });
 
 
-  server.on('error', (e) => {
+  process.on('error', (e) => {
     console.log('Address in use, retrying...');
     // if (e.code === 'EADDRINUSE') {
     //   console.log('Address in use, retrying...');
