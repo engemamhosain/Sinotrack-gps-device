@@ -9,11 +9,11 @@ var client = new net.Socket();
 
 
  function Test() {
-	client.connect(6968, '127.0.0.1', function() {
-	//	client.connect(6968, '103.199.168.131', function() {
+	//client.connect(6968, '127.0.0.1', function() {
+		client.connect(6968, '103.199.168.131', function() {
 	//	client.connect(6002, '52.221.246.136', function() {
 			console.log('Connected');
-			var gps_data=`*HQ,9170594896,V1,112605,A,2348.39318,N,09027.94878,E,001.39,000,130717,FFFF9FFB,470,03,00830,61182#`;
+			var gps_data=`*HQ,5674576543217908,V1,112605,A,2348.39318,N,09027.94878,E,001.39,000,130717,FFFF9FFB,470,03,00830,61182#`;
 				client.write(gps_data);
 				
 		});

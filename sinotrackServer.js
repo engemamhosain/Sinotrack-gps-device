@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 var mysql = require('mysql');
 
 
-require('events').EventEmitter.prototype._maxListeners = Infinity;
-require('events').defaultMaxListeners = Infinity;
+//require('events').EventEmitter.prototype._maxListeners = Infinity;
+//require('events').defaultMaxListeners = Infinity;
 
 
 if(process.env.NODE_ENV){
@@ -18,13 +18,15 @@ if(process.env.NODE_ENV){
 
 const {DB_OPTION} = require("./config/dbConfig")
 
-// const CONNECTION = mysql.createPool({
 
+
+// const CONNECTION = mysql.createPool({
 //   host:DB_OPTION[0].host,
 //   user: DB_OPTION[0].user,
 //   password:DB_OPTION[0].password,
 //   database: DB_OPTION[0].database
 // });
+
 
 const CONNECTION = mysql.createPool({
   connectionLimit: 3000,
@@ -32,16 +34,13 @@ const CONNECTION = mysql.createPool({
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
   database: DB_OPTION[0].database,
-  connectTimeout: 3000,
+  connectTimeout: 5000,
   waitForConnections: true,
   queueLimit: 0 
 });
 
 
-
 const SinotracService = require("./services/SinotrakService")
-
-
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 
@@ -59,7 +58,7 @@ net.createServer(function(sock) {
 
 
     sock.on('error', function(err) {
-      console.log(err)
+      console.log("err",err)
     });
 
 
@@ -75,7 +74,7 @@ process.on('unhandledRejection', (reason, p) => {
   //  console.error(reason, 'Unhandled Rejection at Promise', p);
 })
   .on('uncaughtException', err => {
-   // console.error(err, 'Uncaught Exception thrown');
+    console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);
   });
 
