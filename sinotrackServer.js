@@ -57,6 +57,12 @@ net.createServer(function(sock) {
       sock.end();
     });
 
+
+    conn.on('error', function(err) {
+      console.log(err)
+    });
+
+
         
     sock.on('close', function(data) { });
     
