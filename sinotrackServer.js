@@ -27,7 +27,7 @@ const {DB_OPTION} = require("./config/dbConfig")
 // });
 
 const CONNECTION = mysql.createPool({
-  connectionLimit: 1000,
+  connectionLimit: 3000,
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
