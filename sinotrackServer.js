@@ -58,7 +58,7 @@ net.createServer(function(sock) {
     });
 
 
-    conn.on('error', function(err) {
+    sock.on('error', function(err) {
       console.log(err)
     });
 
