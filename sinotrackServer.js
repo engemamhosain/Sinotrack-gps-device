@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 var mysql = require('mysql');
 
 
-require('events').EventEmitter.prototype._maxListeners = 1000;
-require('events').defaultMaxListeners = 1000;
+require('events').EventEmitter.prototype._maxListeners = 3000;
+require('events').defaultMaxListeners = 3000;
 
 
 if(process.env.NODE_ENV){
