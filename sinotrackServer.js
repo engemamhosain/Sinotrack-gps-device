@@ -20,23 +20,27 @@ const {DB_OPTION} = require("./config/dbConfig")
 
 
 
+
+
 // const CONNECTION = mysql.createPool({
+//   connectionLimit: 250,
 //   host:DB_OPTION[0].host,
 //   user: DB_OPTION[0].user,
 //   password:DB_OPTION[0].password,
-//   database: DB_OPTION[0].database
+//   database: DB_OPTION[0].database,
+//   connectTimeout: 100,
+//   waitForConnections: true,
+//   queueLimit: 0 
 // });
 
 
 const CONNECTION = mysql.createPool({
-  connectionLimit: 300,
+  connectionLimit: 250,
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
   database: DB_OPTION[0].database,
-  connectTimeout: 100,
-  waitForConnections: true,
-  queueLimit: 0 
+  connectTimeout: 100
 });
 
 

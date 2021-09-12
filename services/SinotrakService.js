@@ -50,6 +50,11 @@ const collection_name=["gps_device_location_"];
           if(this.sinotrack!=null) {
 
             let mysqlData=this.sinotrack.getMysqlObject();
+
+            if(mysqlData.imei_id=="NaN" || mysqlData.lat=="NaN"){
+              return
+            }
+
             let sinotrakObj=this.sinotrack;
     
             this.CONNECTION.getConnection((err, connection) => {
@@ -132,6 +137,9 @@ const collection_name=["gps_device_location_"];
             try{
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
+              if(obj.imei_id=="NaN" || obj.lat=="NaN"){
+                return
+              }
 
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
