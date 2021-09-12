@@ -59,29 +59,38 @@ const collection_name=["gps_device_location_"];
     
             this.CONNECTION.getConnection((err, connection) => {
              
+             
 
               if(err) {
-                connection.release(); 
-                throw err;
+
+                if(typeof connection !== 'undefined' && connection) {
+                  connection.release();
+                 }
+              
+                return;
+              }else{
+
+
+                    connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
+
+                      if(err) {
+                        connection.release(); 
+                        return;
+                      }
+                
+                        sinotrakObj.SendEngineStatusNotification(result)
+                    
+                        connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
+                              connection.release(); 
+                              if(err) throw err;
+            
+                        });
+        
+                  });
               }
 
             
-              connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
-
-                  if(err) {
-                    connection.release(); 
-                    throw err;
-                  }
-            
-                    sinotrakObj.SendEngineStatusNotification(result)
-                
-                    connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
-                          connection.release(); 
-                          if(err) throw err;
-        
-                    });
-    
-              });
+           
             
             });  
 
