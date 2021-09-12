@@ -53,7 +53,12 @@ const collection_name=["gps_device_location_"];
             let sinotrakObj=this.sinotrack;
     
             this.CONNECTION.getConnection((err, connection) => {
-              if(err) throw err;
+             
+
+              if(err) {
+                connection.release(); 
+                throw err;
+              }
 
             
               connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){

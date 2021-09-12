@@ -9,12 +9,12 @@ var client = new net.Socket();
 
 
  function Test() {
-	client.connect(6968, '127.0.0.1', function() {
-//		client.connect(6968, '103.199.168.131', function() {
+//	client.connect(6968, '127.0.0.1', function() {
+		client.connect(6968, '103.199.168.131', function() {
 	//	client.connect(6002, '52.221.246.136', function() {
 			console.log('Connected');
-			var gps_data=`*HQ,1232123212321232,V1,112605,A,2348.39318,N,09027.94878,E,009.39,000,130717,FFFFB9FF,470,03,00830,61182#`;
-	//	var gps_data=`*HQ,1020304050,V1,112605,A,2348.39318,N,09027.94878,E,009.39,000,130717,FFFF9FFF,470,03,00830,61182#`;
+			var gps_data=`*HQ,9170544298,V1,112605,A,2348.39318,N,09027.94878,E,009.39,000,130717,FFFFB9FB,470,03,00830,61182#`;
+		//var gps_data=`*HQ,9170544298,V1,112605,A,2348.39318,N,09027.94878,E,009.39,000,130717,FFFF9FFF,470,03,00830,61182#`;
 				client.write(gps_data);
 				
 		});
