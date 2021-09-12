@@ -5,8 +5,9 @@ const KNOT=1.852000;
 const MysqlData=require('./MysqlData'); 
 const MongoData=require('./MongoData'); 
 
-const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","battery_backup","shock_alarm","over_speed"]
- class Sinotrack {
+const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","battery_backup","shock_alarm","over_speed"];
+
+class Sinotrack {
    
     imei_id = 0;
     cmd= 0;
@@ -118,9 +119,8 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
             }
             }
 
-        }
-
     }
+
 
     setEngineStatus  = (bits) =>{
 
@@ -202,11 +202,10 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
             throw error
         }
       
-    }
-  
-  
+    }  
 
-  module.exports = Sinotrack;
+}    
+module.exports = Sinotrack;
 
 
 
