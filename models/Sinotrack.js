@@ -71,6 +71,9 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
         return (parseInt(hex, 16).toString(2)).padStart(8, '0');
     }
 
+
+
+
     sendPushNotification = async function (imei_id,alert_type) {
         try {
 
@@ -93,6 +96,32 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
         }
  
     }
+
+    SendEngineStatusNotification = (lastLocationRawData)=>{
+        let  lastLocationInfo=null;
+        if(lastLocationRawData.length>0){
+            lastLocationInfo = lastLocationRawData[0]
+        }
+
+        if(lastLocationInfo!=null &&  typeof lastLocationInfo!="undifined"){ 
+           
+
+
+            if(lastLocationInfo.engine_status ==GPS_STATE_NAME[0] && this.engine_status==GPS_STATE_NAME[1]){//last status check engine on and current engine off
+            
+                this.sendPushNotification(lastLocationInfo.imei_id,GPS_STATE_NAME[1])
+            }
+
+            if(lastLocationInfo.engine_status ==GPS_STATE_NAME[1] && this.engine_status==GPS_STATE_NAME[0]){//last status check engine off and current engine on
+            
+                this.sendPushNotification(lastLocationInfo.imei_id,GPS_STATE_NAME[0])
+            }
+            }
+
+        }
+
+    }
+
     setEngineStatus  = (bits) =>{
 
        let result = this.hex2bin(bits)
