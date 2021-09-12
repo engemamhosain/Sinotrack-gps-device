@@ -56,12 +56,6 @@ net.createServer(function(sock) {
       sock.end();
     });
 
-
-    sock.on('error', function(err) {
-      console.log("err",err)
-    });
-
-
         
     sock.on('close', function(data) { });
     
@@ -74,27 +68,8 @@ process.on('unhandledRejection', (reason, p) => {
   //  console.error(reason, 'Unhandled Rejection at Promise', p);
 })
   .on('uncaughtException', err => {
-    console.error(err, 'Uncaught Exception thrown');
+   // console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);
   });
 
-  process.on('warning', function (err) {
-    if ( 'MaxListenersExceededWarning' == err.name ) {
-      console.log('max listener');
-      // write to log function
-//      process.exit(1); // its up to you what then in my case script was hang
-
-    }
-  });
-
-
-  process.on('error', (e) => {
-    console.log('Address in use, retrying...');
-    // if (e.code === 'EADDRINUSE') {
-    //   console.log('Address in use, retrying...');
-    //   setTimeout(() => {
-    //     server.close();
-    //     server.listen(PORT, HOST);
-    //   }, 1000);
-    // }
-  });
+ 
