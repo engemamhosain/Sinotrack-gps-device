@@ -204,7 +204,7 @@ const GPS_STATE_NAME=["engine_on","engine_off","power_cut","device_removed","bat
       
     }
   
-  }
+  
 
   module.exports = Sinotrack;
 
