@@ -79,7 +79,7 @@ const collection_name=["gps_device_location_"];
                         sinotrakObj.SendEngineStatusNotification(result)
                     
                         connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
-                              if(err) throw err;
+                             // if(err) throw err;
             
                         });
         
