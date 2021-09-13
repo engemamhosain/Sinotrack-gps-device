@@ -40,7 +40,7 @@ const CONNECTION = mysql.createPool({
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
   database: DB_OPTION[0].database,
-  connectTimeout: 100
+  debug :false,
 });
 
 
