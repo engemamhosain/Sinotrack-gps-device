@@ -92,7 +92,7 @@ const collection_name=["gps_device_location_"];
                   });
               }           
            
-              //connection.release(); 
+              connection.release(); 
             });  
 
 
