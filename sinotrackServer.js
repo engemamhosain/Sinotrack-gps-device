@@ -52,7 +52,6 @@ const HOST = process.env.HOST;
 net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
-      //console.log(process.env.NODE_ENV)
      new SinotracService(buffer,CONNECTION);	
 
     // console.log(buffer.toString('utf8'))
