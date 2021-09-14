@@ -35,7 +35,7 @@ const {DB_OPTION} = require("./config/dbConfig")
 
 
 const CONNECTION = mysql.createPool({
-  connectionLimit: 700,
+  connectionLimit: 250,
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
@@ -52,6 +52,7 @@ const HOST = process.env.HOST;
 net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
+
      new SinotracService(buffer,CONNECTION);	
 
     // console.log(buffer.toString('utf8'))
