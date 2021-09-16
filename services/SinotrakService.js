@@ -64,7 +64,7 @@ const collection_name=["gps_device_location_"];
               if(err) {
 
                 if(typeof connection !== 'undefined' && connection) {
-                  connection.release();
+                //  connection.release();
                  }
 
                 return;
@@ -73,7 +73,7 @@ const collection_name=["gps_device_location_"];
                     connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
 
                       if(err) {
-                        connection.release(); 
+                        //connection.release(); 
                         return;
                       }                
                         sinotrakObj.SendEngineStatusNotification(result)
@@ -105,6 +105,10 @@ const collection_name=["gps_device_location_"];
           if(this.sinotrack!=null) {
             let mysqlData=this.sinotrack.getMysqlObject();
 
+            if(mysqlData.imei_id==6170944873){
+              console.log(mysqlData)
+
+            }
             this.CONNECTION.getConnection((err, connection) => {
               if(err) throw err;
 
