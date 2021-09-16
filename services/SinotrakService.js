@@ -66,15 +66,14 @@ const collection_name=["gps_device_location_"];
             this.CONNECTION.getConnection((err, connection) => {
              
           
-
+              let conn=connection;
               if(err) {
 
                 if(typeof connection !== 'undefined' && connection) {
+                  
                 //  connection.release();
                  }
-
-                return;
-
+                 throw err;
               }else{
                     connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
 
@@ -102,7 +101,7 @@ const collection_name=["gps_device_location_"];
       
                           }
 
-
+                          conn.release();
                              // if(err) throw err;
             
                         });
@@ -114,7 +113,7 @@ const collection_name=["gps_device_location_"];
 
               }     
            
-              connection.release(); 
+             // connection.release(); 
             });  
 
 
