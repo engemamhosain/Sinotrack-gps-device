@@ -108,8 +108,12 @@ const collection_name=["gps_device_location_"];
                         });
         
                   });
-              }           
-           console.log("conn closed")
+              }      
+              if(mysqlData.imei_id==6170944873){
+                console.log("conn closed")
+
+              }     
+           
               connection.release(); 
             });  
 
