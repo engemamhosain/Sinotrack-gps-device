@@ -71,9 +71,10 @@ const collection_name=["gps_device_location_"];
 
                 if(typeof connection !== 'undefined' && connection) {
                   
-                //  connection.release();
+                  connection.release();
+                  console.log("err from initial")
                  }
-                 throw err;
+               
               }else{
                     connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
 
@@ -102,16 +103,17 @@ const collection_name=["gps_device_location_"];
                           }
 
                           conn.release();
-                             // if(err) throw err;
+
+                         if(err) {
+                           console.log("err from second query",err)
+                         }
             
                         });
         
                   });
               }      
-              if(mysqlData.imei_id==6170944873){
-                console.log("conn closed")
 
-              }     
+
            
              // connection.release(); 
             });  
