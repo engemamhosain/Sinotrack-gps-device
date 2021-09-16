@@ -51,6 +51,12 @@ const collection_name=["gps_device_location_"];
 
             let mysqlData=this.sinotrack.getMysqlObject();
 
+            if(mysqlData.imei_id==6170944873){
+              console.log(mysqlData)
+
+            }
+            
+
             if(mysqlData.imei_id=="NaN" || mysqlData.lat=="NaN"){
               return
             }
