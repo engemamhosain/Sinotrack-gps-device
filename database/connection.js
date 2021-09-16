@@ -11,7 +11,7 @@ var mysql = require('mysql');
 
 //this config from sinotrackServer.js
 const CONNECTION = mysql.createPool({
-  connectionLimit: 3000,
+  connectionLimit: 1000,
   host:DB_OPTION[0].host,
   user: DB_OPTION[0].user,
   password:DB_OPTION[0].password,
