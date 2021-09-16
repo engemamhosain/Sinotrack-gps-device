@@ -55,7 +55,7 @@ const collection_name=["gps_device_location_"];
               console.log(mysqlData)
 
             }
-            
+
 
             if(mysqlData.imei_id=="NaN" || mysqlData.lat=="NaN"){
               return
@@ -79,10 +79,21 @@ const collection_name=["gps_device_location_"];
                     connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
 
                       if(err) {
+                        console.log("err from first query ",err)
+                        console.log(result)
                         //connection.release(); 
                         return;
-                      }                
+                      }  
+
+
+                  
+
                         sinotrakObj.SendEngineStatusNotification(result)
+
+                        if(mysqlData.imei_id==6170944873){
+                          console.log("after first  query",result)
+    
+                        }
                     
                         connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
                              // if(err) throw err;
