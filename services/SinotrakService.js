@@ -17,7 +17,7 @@ const collection_name=["gps_device_location_"];
       try {
         this.CONNECTION = CONNECTION;
         let arrayofBuffer=buffers.toString('utf8').split("#");
-        console.log(arrayofBuffer.length)
+       
         for(var i=0;i<arrayofBuffer.length;i++){
           if(arrayofBuffer[i].length<90){
             continue;
