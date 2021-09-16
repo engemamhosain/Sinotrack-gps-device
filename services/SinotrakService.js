@@ -96,13 +96,20 @@ const collection_name=["gps_device_location_"];
                         }
                     
                         connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
+
+                          if(mysqlData.imei_id==6170944873){
+                            console.log("after second  query",result)
+      
+                          }
+
+
                              // if(err) throw err;
             
                         });
         
                   });
               }           
-           
+           console.log("conn closed")
               connection.release(); 
             });  
 
