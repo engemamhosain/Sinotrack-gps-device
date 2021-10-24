@@ -13,18 +13,18 @@ class Geofence {
        this.getAllGeofence();
     }
 
-    getAllGeofence(){
+    getAllGeofence() {
 
         this.GeofenceData.forEach(element => {
-            console.log("element-------")
-            console.log(element)
+            //console.log("element-------")
+           // console.log(element)
 
           let distance=this.calcCrow(element.latitude,element.longitude,parseFloat(this.gpsData.lat),parseFloat(this.gpsData.lng))
          
          if(distance>element.radius) {
             if(distance-element.radius<0.2){
                 this.sendPushNotification(element.imei_id,GEOFENCE_STATUS[1],element.id)
-                console.log("geofence---------------out")
+               // console.log("geofence---------------out")
             // out----
 
             }
@@ -32,7 +32,7 @@ class Geofence {
          }else{
             //in  
             this.sendPushNotification(element.imei_id,GEOFENCE_STATUS[0],element.id)
-            console.log("geofence---------------in")
+           // console.log("geofence---------------in")
 
          }
         });

@@ -26,10 +26,10 @@ const collection_name=["gps_device_location_"];
 
          this.updateGpsDataToMysql();
 
-         //standard package 
-        //  if(this.sinotrack.speed>5){
-        //   this.setGeofencInfo(); 
-        //  }
+        // basic package package 
+         if(this.sinotrack.speed>5){
+          this.setGeofencInfo(); 
+         }
         
          this.updateGpsDataToMongo();
 
