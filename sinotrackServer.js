@@ -50,17 +50,17 @@ const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 
 
-net.createServer(function(sock) {
+ net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
 
-     new SinotracService(buffer,CONNECTION);	
+    new SinotracService(buffer,CONNECTION);	
 
     // console.log(buffer.toString('utf8'))
 
-   // setTimeout(() => {
+    setTimeout(() => {
       sock.end();
-   // }, 5000);
+    }, 300);
 
      
     });
