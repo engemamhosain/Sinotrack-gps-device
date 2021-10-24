@@ -59,10 +59,10 @@ const HOST = process.env.HOST;
 
     // console.log(buffer.toString('utf8'))
 
-    setTimeout(() => {
+    //setTimeout(() => {
    
       sock.end();
-   }, 100);
+   //}, 100);
  
 
      
