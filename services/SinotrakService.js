@@ -47,7 +47,7 @@ const collection_name=["gps_device_location_"];
      
       try {
       
-
+         
           if(this.sinotrack!=null) {
 
             let mysqlData=this.sinotrack.getMysqlObject();
@@ -97,6 +97,7 @@ const collection_name=["gps_device_location_"];
                         // }
                     
                         connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
+                        
 
                           // if(mysqlData.imei_id==6170944873){
                           //   console.log("after second  query",result)
@@ -104,6 +105,7 @@ const collection_name=["gps_device_location_"];
                           // }
 
                           conn.release();
+                        
 
                          if(err) {
                            console.log("err from second query",err)
@@ -147,6 +149,7 @@ const collection_name=["gps_device_location_"];
                 new Geofence(result,mysqlData);
   
                   connection.release(); // return the connection to pool
+               
                   if(err) throw err;
 
               });
@@ -188,6 +191,8 @@ const collection_name=["gps_device_location_"];
               }else{
                 new MongoDbClient(obj);
               }
+
+       
                 
              
 

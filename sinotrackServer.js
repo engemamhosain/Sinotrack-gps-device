@@ -54,17 +54,21 @@ const HOST = process.env.HOST;
     
     sock.on('data', function(buffer) {
 
+     
       new SinotracService(buffer,CONNECTION);	
 
     // console.log(buffer.toString('utf8'))
 
-   // setTimeout(() => {
+    setTimeout(() => {
+   
       sock.end();
-   // }, 5000);
+   }, 100);
+ 
 
      
     });
-
+   
+   
         
     sock.on('close', function(data) { });
     
