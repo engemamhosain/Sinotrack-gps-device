@@ -58,9 +58,9 @@ net.createServer(function(sock) {
 
     // console.log(buffer.toString('utf8'))
 
-    setTimeout(() => {
+   // setTimeout(() => {
       sock.end();
-    }, 5000);
+   // }, 5000);
 
      
     });
