@@ -68,7 +68,7 @@ class Geofence {
                 data: {
                   imei_id: imei_id,
                   alert_type:alert_type,
-                  geo_fence_id:geo_fence_id
+                  geofence_id:geo_fence_id
                 }
               }).then(function(res){
              //     console.log(res)
