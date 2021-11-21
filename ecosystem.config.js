@@ -37,7 +37,7 @@ module.exports = {
     },
 
     production : {
-      "key"  : "/Users/hello/other/key/key.PEM",
+      "key"  : "/home/emamhasan/Key/key/key.PEM",
        "user" : "ubuntu",
        "host" : ["52.221.246.136"],
        "port":"4770",
@@ -47,7 +47,6 @@ module.exports = {
        'post-deploy' : 'npm install && sudo pm2 startOrRestart ecosystem.config.js --env production'
     },
     dev : {
-      "key"  : "/Users/hello/other/key/id_rsa",
        "user" : "system",
        "host" : ["103.199.168.131"],
        "port":"40405",
