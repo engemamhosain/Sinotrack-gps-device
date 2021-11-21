@@ -137,10 +137,10 @@ const collection_name=["gps_device_location_"];
           if(this.sinotrack!=null) {
             let mysqlData=this.sinotrack.getMysqlObject();
 
-            if(mysqlData.imei_id==6170944873){
-              console.log(mysqlData)
+            // if(mysqlData.imei_id==6170944873){
+            //   console.log(mysqlData)
 
-            }
+            // }
             this.CONNECTION.getConnection((err, connection) => {
               if(err) throw err;
 
