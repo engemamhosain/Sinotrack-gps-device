@@ -181,15 +181,15 @@ const collection_name=["gps_device_location_"];
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
-                  new MongoDbClient(obj,db);
+                  new MongoDbClient(obj);
                 }
 
               }else if(obj.bits==imei_ids[0]){
                // if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
-                  new MongoDbClient(obj,db);
+                  new MongoDbClient(obj);
                // }
               }else{
-                new MongoDbClient(obj,db);
+                new MongoDbClient(obj);
               }
 
        

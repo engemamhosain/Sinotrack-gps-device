@@ -8,9 +8,9 @@ const collection_name=["gps_device_location_"];
 class MongoDbClient{
     obj=null;
     
-    constructor(obj,db) {
+    constructor(obj) {
     this.obj=obj;
-      this.insertMongoData(obj,db);
+      this.insertMongoData(obj);
     }
   
 
