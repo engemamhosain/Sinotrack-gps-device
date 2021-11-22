@@ -42,7 +42,7 @@ class MongoDbClient{
                     throw err
                }else{
 
-                if(obj.bits ==1170948091){
+                if(obj.imei_id ==1170948091){
                   console.log(item);
                 }
           
