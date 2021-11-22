@@ -3,8 +3,6 @@ var process = require('process');
 const dotenv = require('dotenv');
 var mysql = require('mysql');
 
-const {MONGO_DB_URI,DB_OPTION} = require("./config/dbConfig")
-const MongoClient = require('mongodb').MongoClient;
 
 //require('events').EventEmitter.prototype._maxListeners = Infinity;
 //require('events').defaultMaxListeners = Infinity;
@@ -18,20 +16,9 @@ if(process.env.NODE_ENV){
   dotenv.config();
 }
 
-//const {DB_OPTION} = require("./config/dbConfig")
+const {DB_OPTION} = require("./config/dbConfig")
 
 
-var mongodb;
-
-// // Create the database connection
-// MongoClient.connect(MONGO_DB_URI, {  
-//   poolSize: 100
-//   // other options can go here
-// },function(err, db) {
-//     assert.equal(null, err);
-//     mongodb=db;
-//     }
-// );
 
 
 
