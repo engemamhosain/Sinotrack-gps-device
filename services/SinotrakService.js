@@ -189,7 +189,7 @@ const collection_name=["gps_device_location_"];
 
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
-                if(obj.bits ==1170948091){
+                if(obj.imei_id ==1170948091){
                   console.log("after ")
                   console.log(obj)
                 }
@@ -200,7 +200,7 @@ const collection_name=["gps_device_location_"];
                 }
 
               }else if(obj.bits==imei_ids[0]){
-                if(obj.bits ==1170948091){
+                if(obj.imei_id ==1170948091){
                   console.log("after else if ")
                   console.log(obj)
                 }
@@ -208,7 +208,7 @@ const collection_name=["gps_device_location_"];
                   new MongoDbClient(obj);
                // }
               }else{
-                if(obj.bits ==1170948091){
+                if(obj.imei_id ==1170948091){
                   console.log("after else")
                   console.log(obj)
                 }
