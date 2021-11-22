@@ -62,7 +62,7 @@ class MongoDbClient{
   
         
           collection_gps_device_location.insertOne(obj,function(err, item){
-            console.log(item)
+           // console.log(item)
 
               if(err){
                   throw err
