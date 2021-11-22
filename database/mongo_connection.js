@@ -8,9 +8,10 @@ const collection_name=["gps_device_location_"];
 class MongoDbClient{
     obj=null;
     
-    constructor(obj) {
+    constructor(obj,mongodb) {
     this.obj=obj;
-      this.insertMongoData(obj);
+      //this.insertMongoData(obj);
+      this.insertMongoDataPool(obj,mongodb);
     }
   
 
@@ -40,17 +41,37 @@ class MongoDbClient{
 
                 if(err){
                     throw err
-               }else{
-
-                if(obj.imei_id ==1170948091){
-                  console.log(item);
-                }
-          
                }
+
             });
 
         });
     }    
+
+
+
+
+    insertMongoDataPool =(obj,mongodb)=> {
+      
+
+        
+        let date=new Date();
+        let month=date.getMonth()+1;
+        let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
+   
+          const collection_gps_device_location = mongodb.collection(collection_name+collectionName);
+        
+          collection_gps_device_location.insertOne(obj,function(err, item){
+
+              if(err){
+                  throw err
+             }
+
+          });
+
+  
+  }  
+
 }
 
 module.exports = MongoDbClient
