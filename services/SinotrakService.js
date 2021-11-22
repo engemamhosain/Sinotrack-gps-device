@@ -13,7 +13,7 @@ const collection_name=["gps_device_location_"];
 
       CONNECTION = null
 
-    constructor(buffers,CONNECTION) {
+    constructor(buffers,CONNECTION,mongodb) {
       try {
         this.CONNECTION = CONNECTION;
         let arrayofBuffer=buffers.toString('utf8').split("#");
@@ -31,7 +31,7 @@ const collection_name=["gps_device_location_"];
           this.setGeofencInfo(); 
          }
         
-         this.updateGpsDataToMongo();
+         this.updateGpsDataToMongo(mongodb);
 
         }
       
@@ -164,7 +164,7 @@ const collection_name=["gps_device_location_"];
 
 
    
-       updateGpsDataToMongo() {
+       updateGpsDataToMongo(mongodb) {
 
       try {     
           if(this.sinotrack!=null) { 
@@ -180,22 +180,21 @@ const collection_name=["gps_device_location_"];
               }
 
 
-
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
 
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
-                  new MongoDbClient(obj);
+                  new MongoDbClient(obj,mongodb);
                 }
 
               }else if(obj.bits==imei_ids[0]){
              
                // if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
-                  new MongoDbClient(obj);
+                  new MongoDbClient(obj,mongodb);
                // }
               }else{
               
-                new MongoDbClient(obj);
+                new MongoDbClient(obj,mongodb);
               }
 
        

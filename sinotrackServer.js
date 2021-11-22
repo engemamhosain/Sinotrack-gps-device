@@ -2,7 +2,7 @@ var net = require('net');
 var process = require('process');
 const dotenv = require('dotenv');
 var mysql = require('mysql');
-
+const MongoClient = require('mongodb').MongoClient;
 
 //require('events').EventEmitter.prototype._maxListeners = Infinity;
 //require('events').defaultMaxListeners = Infinity;
@@ -16,9 +16,20 @@ if(process.env.NODE_ENV){
   dotenv.config();
 }
 
-const {DB_OPTION} = require("./config/dbConfig")
+const {MONGO_DB_URI,DB_OPTION} = require("./config/dbConfig")
+
+var mongodb;
 
 
+// Create the database connection
+MongoClient.connect(MONGO_DB_URI, {  
+  poolSize: 100
+  // other options can go here
+},function(err, db) {
+    assert.equal(null, err);
+    mongodb=db;
+    }
+);
 
 
 
@@ -55,7 +66,7 @@ const HOST = process.env.HOST;
     sock.on('data', function(buffer) {
 
      
-      new SinotracService(buffer,CONNECTION);	
+      new SinotracService(buffer,CONNECTION,mongodb);	
 
     // console.log(buffer.toString('utf8'))
 
