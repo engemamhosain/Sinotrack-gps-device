@@ -59,8 +59,7 @@ class MongoDbClient{
         let collectionName=date.getDate()+"_"+month+"_"+date.getFullYear();
    
           const collection_gps_device_location = mongodb.collection(collection_name+collectionName);
-          console.log("collection_gps_device_location")
-          console.log(collection_gps_device_location)
+  
         
           collection_gps_device_location.insertOne(obj,function(err, item){
             console.log(item)

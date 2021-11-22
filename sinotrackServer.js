@@ -23,7 +23,7 @@ var mongodb;
 
 // Create the database connection
 MongoClient.connect(MONGO_DB_URI,{ useUnifiedTopology: true }, {  
-  poolSize: 10
+  poolSize: 100
   // other options can go here
 },function(err, client) {
   
