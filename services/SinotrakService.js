@@ -137,10 +137,7 @@ const collection_name=["gps_device_location_"];
           if(this.sinotrack!=null) {
             let mysqlData=this.sinotrack.getMysqlObject();
 
-            if(mysqlData.imei_id==1170948091){
-              console.log(mysqlData)
-
-            }
+            
             this.CONNECTION.getConnection((err, connection) => {
               if(err) throw err;
 
@@ -172,11 +169,22 @@ const collection_name=["gps_device_location_"];
       try {     
           if(this.sinotrack!=null) { 
             try{
+           
               let date= new Date().getMinutes()%MONGO_INTERVAL_TIME;
               let obj=this.sinotrack.getMongoObject();
+
+
               if(obj.imei_id=="NaN" || obj.lat=="NaN"){
+                console.log("imei_id is NA")
                 return
               }
+
+
+              if(obj.imei_id==1170948091){
+                console.log(obj)
+  
+              }
+
 
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
@@ -202,12 +210,17 @@ const collection_name=["gps_device_location_"];
             }catch(error){
              throw error;
             }
-        }  
+
+            
+        } else{
+          console.log("this.sinotrack is null for mongo")
+        } 
   
         } catch (error) {  
           throw error
         }
     }
+    
 
 
   }
