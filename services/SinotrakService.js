@@ -13,7 +13,7 @@ const collection_name=["gps_device_location_"];
 
       CONNECTION = null
 
-    constructor(buffers,CONNECTION,mongodb) {
+    constructor(buffers,CONNECTION,mongodb,sock) {
       try {
         this.CONNECTION = CONNECTION;
         let arrayofBuffer=buffers.toString('utf8').split("#");
@@ -32,6 +32,8 @@ const collection_name=["gps_device_location_"];
          }
         
          this.updateGpsDataToMongo(mongodb);
+
+         sock.end()
 
         }
       

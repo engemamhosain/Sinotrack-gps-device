@@ -3,7 +3,7 @@ var process = require('process');
 const dotenv = require('dotenv');
 var mysql = require('mysql');
 const MongoClient = require('mongodb').MongoClient;
-
+var assert = require('assert');
 //require('events').EventEmitter.prototype._maxListeners = Infinity;
 //require('events').defaultMaxListeners = Infinity;
 
@@ -22,14 +22,20 @@ var mongodb;
 
 
 // Create the database connection
-MongoClient.connect(MONGO_DB_URI, {  
-  poolSize: 100
+MongoClient.connect(MONGO_DB_URI,{ useUnifiedTopology: true }, {  
+  poolSize: 10
   // other options can go here
-},function(err, db) {
-    assert.equal(null, err);
-    mongodb=db;
+},function(err, client) {
+  
+  mongodb= client.db("tl_gps_device")
+   // assert.equal(null, err);
+    //mongodb=db;
+
+    
     }
 );
+
+
 
 
 
@@ -56,7 +62,9 @@ const CONNECTION = mysql.createPool({
 });
 
 
-const SinotracService = require("./services/SinotrakService")
+const SinotracService = require("./services/SinotrakService");
+const { constants } = require('buffer');
+const { copyFileSync } = require('fs');
 const PORT = process.env.PORT;
 const HOST = process.env.HOST;
 
@@ -64,15 +72,15 @@ const HOST = process.env.HOST;
  net.createServer(function(sock) {
     
     sock.on('data', function(buffer) {
-
+    
      
-      new SinotracService(buffer,CONNECTION,mongodb);	
+      new SinotracService(buffer,CONNECTION,mongodb,sock);	
 
-    // console.log(buffer.toString('utf8'))
+     console.log(buffer.toString('utf8'))
 
     //setTimeout(() => {
    
-      sock.end();
+    //  sock.end();
    //}, 100);
  
 
