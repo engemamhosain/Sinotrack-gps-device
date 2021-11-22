@@ -33,9 +33,7 @@ class MongoDbClient{
             collection_gps_device_location.insertOne(obj,function(err, item){
 
 
-              // if(obj.bits ==1170948091){
-              //   console.log(obj)
-              // }
+          
 
               //  collection_gps_device_location.createIndex({imei_id:1})
                 client.close();
@@ -43,7 +41,11 @@ class MongoDbClient{
                 if(err){
                     throw err
                }else{
-                 console.log(item);
+
+                if(obj.bits ==1170948091){
+                  console.log(item);
+                }
+          
                }
             });
 
