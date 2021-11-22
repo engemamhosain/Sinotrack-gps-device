@@ -189,19 +189,29 @@ const collection_name=["gps_device_location_"];
 
               if(obj.bits==imei_ids[1]|| obj.bits==imei_ids[2]){
 
+                if(obj.bits ==1170948091){
+                  console.log("after ")
+                  console.log(obj)
+                }
+
+
                 if(date==0 && parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
                 }
 
               }else if(obj.bits==imei_ids[0]){
                 if(obj.bits ==1170948091){
-                  console.log("after ")
+                  console.log("after else if ")
                   console.log(obj)
                 }
                // if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
                // }
               }else{
+                if(obj.bits ==1170948091){
+                  console.log("after else")
+                  console.log(obj)
+                }
                 new MongoDbClient(obj);
               }
 
