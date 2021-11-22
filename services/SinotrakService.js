@@ -137,7 +137,7 @@ const collection_name=["gps_device_location_"];
           if(this.sinotrack!=null) {
             let mysqlData=this.sinotrack.getMysqlObject();
 
-            if(mysqlData.imei_id==100){
+            if(mysqlData.imei_id==1170948091){
               console.log(mysqlData)
 
             }
@@ -185,6 +185,9 @@ const collection_name=["gps_device_location_"];
                 }
 
               }else if(obj.bits==imei_ids[0]){
+                if(obj.bits ==1170948091){
+                  console.log(obj)
+                }
                // if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
                   new MongoDbClient(obj);
                // }
