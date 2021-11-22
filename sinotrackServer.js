@@ -23,15 +23,15 @@ if(process.env.NODE_ENV){
 
 var mongodb;
 
-// Create the database connection
-MongoClient.connect(MONGO_DB_URI, {  
-  poolSize: 100
-  // other options can go here
-},function(err, db) {
-    assert.equal(null, err);
-    mongodb=db;
-    }
-);
+// // Create the database connection
+// MongoClient.connect(MONGO_DB_URI, {  
+//   poolSize: 100
+//   // other options can go here
+// },function(err, db) {
+//     assert.equal(null, err);
+//     mongodb=db;
+//     }
+// );
 
 
 

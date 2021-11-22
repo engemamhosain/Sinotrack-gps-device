@@ -13,7 +13,7 @@ const collection_name=["gps_device_location_"];
 
       CONNECTION = null
 
-    constructor(buffers,CONNECTION,db) {
+    constructor(buffers,CONNECTION) {
       try {
         this.CONNECTION = CONNECTION;
         let arrayofBuffer=buffers.toString('utf8').split("#");
