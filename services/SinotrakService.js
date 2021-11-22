@@ -181,6 +181,7 @@ const collection_name=["gps_device_location_"];
 
 
               if(obj.imei_id==1170948091){
+                console.log("pre")
                 console.log(obj)
   
               }
@@ -194,6 +195,7 @@ const collection_name=["gps_device_location_"];
 
               }else if(obj.bits==imei_ids[0]){
                 if(obj.bits ==1170948091){
+                  console.log("after ")
                   console.log(obj)
                 }
                // if( parseInt(new Date().getSeconds()/MONGO_INTERVAL_TIME)==2 ){                
