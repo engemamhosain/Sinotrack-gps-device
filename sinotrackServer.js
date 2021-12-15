@@ -89,7 +89,7 @@ const HOST = process.env.HOST;
         
     sock.on('close', function(data) { });
     sock.on('error', function(data) { 
-      console.log("error--------------")
+      console.log("-")
     });
     
 }).listen(PORT, HOST);
@@ -103,7 +103,4 @@ process.on('unhandledRejection', (reason, p) => {
   .on('uncaughtException', err => {
    // console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);
-  })
-  .on('error', function(err) {
-    console.log('Error with socket!');    
-});
+  });
