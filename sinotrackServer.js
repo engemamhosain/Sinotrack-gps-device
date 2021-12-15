@@ -100,6 +100,7 @@ process.on('unhandledRejection', (reason, p) => {
   .on('uncaughtException', err => {
    // console.error(err, 'Uncaught Exception thrown');
    // process.exit(1);
-  });
-
- 
+  })
+  .on('error', function(err) {
+    console.log('Error with socket!');    
+});
