@@ -105,7 +105,7 @@ const collection_name=["gps_device_location_"];
                           //   console.log("after second  query",result)
       
                           // }
-
+                            console.log("inner func")
                           conn.release();
                         
 
@@ -128,6 +128,9 @@ const collection_name=["gps_device_location_"];
   
         } catch (error) {    
          throw error
+        }
+        finally {
+         console.log("finaly")
         }
     }
 
