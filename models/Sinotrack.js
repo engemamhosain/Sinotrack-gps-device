@@ -77,6 +77,7 @@ class Sinotrack {
 
     sendPushNotification = async function (imei_id,alert_type) {
         try {
+           
 
             axios({
                 url: process.env.NOTIFICATION_URL,
@@ -85,11 +86,10 @@ class Sinotrack {
                   imei_id: imei_id,
                   alert_type:alert_type
                 }
-              }).then(function(res){
-             //     console.log(res)
+              }).then(function(res){           
 
               }).catch(function(err){
-                   // throw err
+                    throw err
               });
                   
         } catch (error) {

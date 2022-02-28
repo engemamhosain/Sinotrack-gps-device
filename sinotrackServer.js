@@ -35,22 +35,6 @@ MongoClient.connect(MONGO_DB_URI,{ useUnifiedTopology: true }, {
     }
 );
 
-
-
-
-
-// const CONNECTION = mysql.createPool({
-//   connectionLimit: 250,
-//   host:DB_OPTION[0].host,
-//   user: DB_OPTION[0].user,
-//   password:DB_OPTION[0].password,
-//   database: DB_OPTION[0].database,
-//   connectTimeout: 100,
-//   waitForConnections: true,
-//   queueLimit: 0 
-// });
-
-
 const CONNECTION = mysql.createPool({
   connectionLimit: 500,
   host:DB_OPTION[0].host,
@@ -61,6 +45,10 @@ const CONNECTION = mysql.createPool({
   debug :false,
 });
 
+
+CONNECTION.on('enqueue', function () {
+  console.log('Waiting for available connection slot');
+});
 
 const SinotracService = require("./services/SinotrakService");
 const { constants } = require('buffer');

@@ -10,7 +10,6 @@ const collection_name=["gps_device_location_"];
  class SinotrackService {
 
       sinotrack = null;
-
       CONNECTION = null
 
     constructor(buffers,CONNECTION,mongodb,sock) {
@@ -23,9 +22,7 @@ const collection_name=["gps_device_location_"];
             continue;
           }
           this.sinotrack = new Sinotrack(arrayofBuffer[i]);
-
          this.updateGpsDataToMysql();
-
         // basic package package 
          if(this.sinotrack.speed>5){
           this.setGeofencInfo(); 
@@ -48,17 +45,11 @@ const collection_name=["gps_device_location_"];
     updateGpsDataToMysql= () => {
      
       try {
-      
-         
+       
+               
           if(this.sinotrack!=null) {
 
             let mysqlData=this.sinotrack.getMysqlObject();
-
-            // if(mysqlData.imei_id==9170544140){
-            //   console.log(mysqlData)
-
-            // }
-
 
             if(mysqlData.imei_id=="NaN" || mysqlData.lat=="NaN"){
               return
@@ -82,56 +73,36 @@ const collection_name=["gps_device_location_"];
                     connection.query(QUERY.GET_LAST_UPDATE_LOCATION_QUERY,mysqlData.imei_id, function(err, result){
 
                       if(err) {
-                        console.log("err from first query ",err)
-                        console.log(result)
+                        console.log("err from first query ",err)                        
                         connection.release(); 
                         return;
-                      }  
-
-
-                  
-
-                        sinotrakObj.SendEngineStatusNotification(result)
-
-                        // if(mysqlData.imei_id==6170944873){
-                        //   console.log("after first  query",result)
-    
-                        // }
+                      }                                          
+                         sinotrakObj.SendEngineStatusNotification(result)
                     
-                        connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){
+                         connection.query(QUERY.INSERT_QUERY,mysqlData, function(err, result){                          
+                          // connection.release(); 
+                           conn.destroy();
                         
-
-                          // if(mysqlData.imei_id==6170944873){
-                          //   console.log("after second  query",result)
-      
-                          // }
-                        //    console.log("inner func")
-                          conn.release();
-                        
-
                          if(err) {
                            console.log("err from second query",err)
                          }
             
                         });
+
         
                   });
               }      
 
-
-           
-             // connection.release(); 
             });  
 
 
           }
   
-        } catch (error) {    
+        }
+         catch (error) {    
          throw error
         }
-        finally {
-      //   console.log("finaly")
-        }
+      
     }
 
     setGeofencInfo= () => {
@@ -148,7 +119,7 @@ const collection_name=["gps_device_location_"];
 
 
               connection.query(QUERY.GET_GEOFENCE_QUERY,mysqlData.imei_id, function(err, result){
-                new Geofence(result,mysqlData);
+                new Geofence(result,mysqlData);     
   
                   connection.release(); // return the connection to pool
                
