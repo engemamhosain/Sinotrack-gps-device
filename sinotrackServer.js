@@ -61,7 +61,7 @@ const HOST = process.env.HOST;
     
     sock.on('data', function(buffer) {
     
-     console.log(buffer)
+     console.log(buffer.toString('utf8'))
       new SinotracService(buffer,CONNECTION,mongodb,sock);	
 
     //setTimeout(() => {
