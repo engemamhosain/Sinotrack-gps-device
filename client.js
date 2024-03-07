@@ -31,7 +31,7 @@ var client = new net.Socket();
 async function callFunc(i){
 client.connect(6968, '127.0.0.1', function() {
 
-//	client.connect(6968, '103.199.168.131', function() {
+
 
 		console.log('Connected');
 		var gps_data=`*HQ,6170948097${i},V1,112605,A,2346.8111,N,09023.7068,E,005.39,000,130717,FFFFB9FB,470,03,00830,61182#`;
@@ -59,13 +59,7 @@ async function loop(){
 		
 	}
 }
-//loop();
 
-//callFunc();
-
-// setInterval(() => {
-// 	callFunc();
-// }, 10000);
 
 client.on('data', function(data) {
 	console.log('Received: ' + data);
